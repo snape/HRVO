@@ -1,0 +1,9 @@
+language: cpp
+compiler:
+  - gcc
+  - clang
+script:
+  - mkdir _build
+  - cd _build
+  - cmake ..
+  - ctest --extra-verbose --dashboard Experimental .
