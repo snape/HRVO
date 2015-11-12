@@ -1,7 +1,12 @@
+---
+sudo: false
 language: cpp
 compiler:
-  - gcc
   - clang
+  - gcc
+os:
+  - linux
+  - osx
 script:
   - mkdir _build
   - cd _build

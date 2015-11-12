@@ -6,7 +6,7 @@ The Hybrid Reciprocal Velocity Obstacle
 Copyright &copy; 2009-2015 University of North Carolina at Chapel Hill. All
 rights reserved.
 
-[![Build Status](https://travis-ci.org/snape/HRVO.png?branch=master)](https://travis-ci.org/snape/HRVO)
+[![Build Status](https://travis-ci.org/snape/HRVO.svg?branch=master)](https://travis-ci.org/snape/HRVO)
 
 We present the hybrid reciprocal velocity obstacle for collision-free and
 oscillation-free navigation of multiple mobile robots or virtual agents. Each
@@ -57,9 +57,9 @@ Please send all bug reports to [geom@cs.unc.edu](mailto:geom@cs.unc.edu).
 
 The authors may be contacted via:
 
-Jamie Snape, Jur van den Berg, Stephen J. Guy, and Dinesh Manocha
-Dept. of Computer Science
-201 S. Columbia St.
-Frederick P. Brooks, Jr. Computer Science Bldg.
-Chapel Hill, N.C. 27599-3175
+Jamie Snape, Jur van den Berg, Stephen J. Guy, and Dinesh Manocha  
+Dept. of Computer Science  
+201 S. Columbia St.  
+Frederick P. Brooks, Jr. Computer Science Bldg.  
+Chapel Hill, N.C. 27599-3175  
 United States of America
