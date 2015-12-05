@@ -1,4 +1,4 @@
-# Doxyfile 1.8.9.1
+# Doxyfile 1.8.10
 
 #---------------------------------------------------------------------------
 # Project related configuration options
@@ -41,6 +41,7 @@ CPP_CLI_SUPPORT        = NO
 SIP_SUPPORT            = NO
 IDL_PROPERTY_SUPPORT   = YES
 DISTRIBUTE_GROUP_DOC   = NO
+GROUP_NESTED_COMPOUNDS = NO
 SUBGROUPING            = YES
 INLINE_GROUPED_CLASSES = NO
 INLINE_SIMPLE_STRUCTS  = NO

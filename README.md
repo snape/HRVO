@@ -7,6 +7,7 @@ Copyright &copy; 2009-2015 University of North Carolina at Chapel Hill. All
 rights reserved.
 
 [![Build Status](https://travis-ci.org/snape/HRVO.svg?branch=master)](https://travis-ci.org/snape/HRVO)
+[![Build status](https://ci.appveyor.com/api/projects/status/ordfo2c7kpsmdp7r/branch/master?svg=true)](https://ci.appveyor.com/project/snape/hrvo/branch/master)
 
 We present the hybrid reciprocal velocity obstacle for collision-free and
 oscillation-free navigation of multiple mobile robots or virtual agents. Each
