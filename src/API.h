@@ -1,5 +1,5 @@
 /*
- * Definitions.h
+ * API.h
  * HRVO Library
  *
  * Copyright 2009 University of North Carolina at Chapel Hill
@@ -31,32 +31,37 @@
  */
 
 /**
- * \file   Definitions.h
- * \brief  Declares and defines internal functions.
+ * \file   API.h
+ * \brief  Defines macros related to Microsoft Windows.
  */
 
-#ifndef HRVO_DEFINITIONS_H_
-#define HRVO_DEFINITIONS_H_
-
 #ifndef HRVO_API_H_
-#include "API.h"
+#define HRVO_API_H_
+
+#ifdef _WIN32
+#include <SDKDDKVer.h>
+#define WIN32_LEAN_AND_MEAN
+#define NOCOMM
+#define NOIMAGE
+#define NOIME
+#define NOKANJI
+#define NOMCX
+#define NOMINMAX
+#define NOPROXYSTUB
+#define NOSERVICE
+#define NOSOUND
+#define NOTAPE
+#define NORPC
+#define _USE_MATH_DEFINES
+#include <windows.h>
 #endif
 
-namespace hrvo {
-	/**
-	 * \brief  A sufficiently small positive float.
-	 */
-	const float HRVO_EPSILON = 0.00001f;
+#ifdef HRVO_EXPORTS
+#define HRVO_API __declspec(dllexport)
+#elif defined(HRVO_IMPORTS)
+#define HRVO_API __declspec(dllimport)
+#else
+#define HRVO_API
+#endif
 
-	/**
-	 * \brief      Computes the square of a float.
-	 * \param[in]  scalar  The float to be squared.
-	 * \return     The square of the float.
-	 */
-	inline float sqr(float scalar)
-	{
-		return scalar * scalar;
-	}
-}
-
-#endif /* HRVO_DEFINITIONS_H_ */
+#endif /* HRVO_API_H_ */

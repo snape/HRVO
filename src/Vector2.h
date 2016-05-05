@@ -2,43 +2,19 @@
  * Vector2.h
  * HRVO Library
  *
- * Copyright (c) 2009-2015 University of North Carolina at Chapel Hill.
- * All rights reserved.
+ * Copyright 2009 University of North Carolina at Chapel Hill
  *
- * Permission to use, copy, modify, and distribute this software and its
- * documentation for educational, non-commercial research, and non-profit
- * purposes, without fee, and without a written agreement is hereby granted,
- * provided that the above copyright notice, this paragraph, and the following
- * four paragraphs appear in all copies.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * Permission to incorporate this software into commercial products may be
- * obtained by contacting the authors <geom@cs.unc.edu> or the Office of
- * Technology Development at the University of North Carolina at Chapel Hill
- * <otd@unc.edu>.
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * This software program and documentation are copyrighted by the University of
- * North Carolina at Chapel Hill. The software program and documentation are
- * supplied "as is," without any accompanying services from the University of
- * North Carolina at Chapel Hill or the authors. The University of North
- * Carolina at Chapel Hill and the authors do not warrant that the operation of
- * the program will be uninterrupted or error-free. The end-user understands
- * that the program was developed for research purposes and is advised not to
- * rely exclusively on the program for any reason.
- *
- * IN NO EVENT SHALL THE UNIVERSITY OF NORTH CAROLINA AT CHAPEL HILL OR THE
- * AUTHORS BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR
- * CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS
- * SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF NORTH CAROLINA AT
- * CHAPEL HILL OR THE AUTHORS HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.
- *
- * THE UNIVERSITY OF NORTH CAROLINA AT CHAPEL HILL AND THE AUTHORS SPECIFICALLY
- * DISCLAIM ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AND ANY
- * STATUTORY WARRANTY OF NON-INFRINGEMENT. THE SOFTWARE PROVIDED HEREUNDER IS ON
- * AN "AS IS" BASIS, AND THE UNIVERSITY OF NORTH CAROLINA AT CHAPEL HILL AND THE
- * AUTHORS HAVE NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES,
- * ENHANCEMENTS, OR MODIFICATIONS.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  * Please send all bug reports to <geom@cs.unc.edu>.
  *
@@ -62,6 +38,10 @@
 #ifndef HRVO_VECTOR2_H_
 #define HRVO_VECTOR2_H_
 
+#ifndef HRVO_API_H_
+#include "API.h"
+#endif
+
 #include <cmath>
 #include <iosfwd>
 
@@ -70,7 +50,7 @@ namespace hrvo {
 	 * \class  Vector2
 	 * \brief  A vector in two dimensions.
 	 */
-	class Vector2 {
+	class HRVO_API Vector2 {
 	public:
 		/**
 		 * \brief  Constructor.
@@ -254,7 +234,7 @@ namespace hrvo {
 	 * \param[in]  vector  The vector whose length is to be computed.
 	 * \return     The length of the vector.
 	 */
-	inline float abs(const Vector2 &vector)
+	HRVO_API inline float abs(const Vector2 &vector)
 	{
 		return std::sqrt(vector * vector);
 	}
@@ -265,7 +245,7 @@ namespace hrvo {
 	 * \param[in]  vector  The vector whose squared length is to be calculated.
 	 * \return     The squared length of the vector.
 	 */
-	inline float absSq(const Vector2 &vector)
+	HRVO_API inline float absSq(const Vector2 &vector)
 	{
 		return vector * vector;
 	}
@@ -276,7 +256,7 @@ namespace hrvo {
 	 * \param[in]  vector  The vector whose angle with the positive x-axis is to be calculated.
 	 * \return     The angle in radians between the vector and the positive x-axis in the range [-PI, PI].
 	 */
-	inline float atan(const Vector2 &vector)
+	HRVO_API inline float atan(const Vector2 &vector)
 	{
 		return std::atan2(vector.getY(), vector.getX());
 	}
@@ -288,7 +268,7 @@ namespace hrvo {
 	 * \param[in]  vector2  The bottom row of the square matrix.
 	 * \return     The determinant of the square matrix.
 	 */
-	inline float det(const Vector2 &vector1, const Vector2 &vector2)
+	HRVO_API inline float det(const Vector2 &vector1, const Vector2 &vector2)
 	{
 		return vector1.getX() * vector2.getY() - vector1.getY() * vector2.getX();
 	}
@@ -299,7 +279,7 @@ namespace hrvo {
 	 * \param[in]  vector  The vector whose normalization is to be calculated.
 	 * \return     The normalization of the vector.
 	 */
-	inline Vector2 normalize(const Vector2 &vector)
+	HRVO_API inline Vector2 normalize(const Vector2 &vector)
 	{
 		return vector / abs(vector);
 	}
@@ -311,7 +291,7 @@ namespace hrvo {
 	 * \param[in]  vector2  The second end point of the line segment.
 	 * \return     The normal vector of the line segment.
 	 */
-	inline Vector2 normal(const Vector2 &vector1, const Vector2 &vector2)
+	HRVO_API inline Vector2 normal(const Vector2 &vector1, const Vector2 &vector2)
 	{
 		return normalize(Vector2(vector2.getY() - vector1.getY(), vector1.getX() - vector2.getX()));
 	}
@@ -323,7 +303,7 @@ namespace hrvo {
 	 * \param[in]  vector  The vector with which the scalar multiplication should be computed.
 	 * \return     The scalar multiplication of the vector with the scalar value.
 	 */
-	inline Vector2 operator*(float scalar, const Vector2 &vector)
+	HRVO_API inline Vector2 operator*(float scalar, const Vector2 &vector)
 	{
 		return Vector2(scalar * vector.getX(), scalar * vector.getY());
 	}
@@ -335,7 +315,7 @@ namespace hrvo {
 	 * \param[in]  vector  The two-dimensional vector which to insert into the output stream.
 	 * \return     A reference to the output stream.
 	 */
-	std::ostream &operator<<(std::ostream &stream, const Vector2 &vector);
+	HRVO_API std::ostream &operator<<(std::ostream &stream, const Vector2 &vector);
 }
 
 #endif /* HRVO_VECTOR2_H_ */
