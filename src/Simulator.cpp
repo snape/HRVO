@@ -35,21 +35,13 @@
  * \brief  Defines the Simulator class.
  */
 
-#ifndef HRVO_SIMULATOR_H_
 #include "Simulator.h"
-#endif
 
 #include <stdexcept>
 
-#ifndef HRVO_AGENT_H_
 #include "Agent.h"
-#endif
-#ifndef HRVO_GOAL_H_
 #include "Goal.h"
-#endif
-#ifndef HRVO_KD_TREE_H_
 #include "KdTree.h"
-#endif
 
 namespace hrvo {
 	Simulator::Simulator() : defaults_(NULL), kdTree_(NULL), globalTime_(0.0f), timeStep_(0.0f), reachedGoals_(false)

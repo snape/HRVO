@@ -38,9 +38,7 @@
 #ifndef HRVO_VECTOR2_H_
 #define HRVO_VECTOR2_H_
 
-#ifndef HRVO_API_H_
-#include "API.h"
-#endif
+#include "Export.h"
 
 #include <cmath>
 #include <iosfwd>
@@ -50,7 +48,7 @@ namespace hrvo {
 	 * \class  Vector2
 	 * \brief  A vector in two dimensions.
 	 */
-	class HRVO_API Vector2 {
+	class HRVO_EXPORT Vector2 {
 	public:
 		/**
 		 * \brief  Constructor.
@@ -234,7 +232,7 @@ namespace hrvo {
 	 * \param[in]  vector  The vector whose length is to be computed.
 	 * \return     The length of the vector.
 	 */
-	HRVO_API inline float abs(const Vector2 &vector)
+	HRVO_EXPORT inline float abs(const Vector2 &vector)
 	{
 		return std::sqrt(vector * vector);
 	}
@@ -245,7 +243,7 @@ namespace hrvo {
 	 * \param[in]  vector  The vector whose squared length is to be calculated.
 	 * \return     The squared length of the vector.
 	 */
-	HRVO_API inline float absSq(const Vector2 &vector)
+	HRVO_EXPORT inline float absSq(const Vector2 &vector)
 	{
 		return vector * vector;
 	}
@@ -256,7 +254,7 @@ namespace hrvo {
 	 * \param[in]  vector  The vector whose angle with the positive x-axis is to be calculated.
 	 * \return     The angle in radians between the vector and the positive x-axis in the range [-PI, PI].
 	 */
-	HRVO_API inline float atan(const Vector2 &vector)
+	HRVO_EXPORT inline float atan(const Vector2 &vector)
 	{
 		return std::atan2(vector.getY(), vector.getX());
 	}
@@ -268,7 +266,7 @@ namespace hrvo {
 	 * \param[in]  vector2  The bottom row of the square matrix.
 	 * \return     The determinant of the square matrix.
 	 */
-	HRVO_API inline float det(const Vector2 &vector1, const Vector2 &vector2)
+	HRVO_EXPORT inline float det(const Vector2 &vector1, const Vector2 &vector2)
 	{
 		return vector1.getX() * vector2.getY() - vector1.getY() * vector2.getX();
 	}
@@ -279,7 +277,7 @@ namespace hrvo {
 	 * \param[in]  vector  The vector whose normalization is to be calculated.
 	 * \return     The normalization of the vector.
 	 */
-	HRVO_API inline Vector2 normalize(const Vector2 &vector)
+	HRVO_EXPORT inline Vector2 normalize(const Vector2 &vector)
 	{
 		return vector / abs(vector);
 	}
@@ -291,7 +289,7 @@ namespace hrvo {
 	 * \param[in]  vector2  The second end point of the line segment.
 	 * \return     The normal vector of the line segment.
 	 */
-	HRVO_API inline Vector2 normal(const Vector2 &vector1, const Vector2 &vector2)
+	HRVO_EXPORT inline Vector2 normal(const Vector2 &vector1, const Vector2 &vector2)
 	{
 		return normalize(Vector2(vector2.getY() - vector1.getY(), vector1.getX() - vector2.getX()));
 	}
@@ -303,7 +301,7 @@ namespace hrvo {
 	 * \param[in]  vector  The vector with which the scalar multiplication should be computed.
 	 * \return     The scalar multiplication of the vector with the scalar value.
 	 */
-	HRVO_API inline Vector2 operator*(float scalar, const Vector2 &vector)
+	HRVO_EXPORT inline Vector2 operator*(float scalar, const Vector2 &vector)
 	{
 		return Vector2(scalar * vector.getX(), scalar * vector.getY());
 	}
@@ -315,7 +313,7 @@ namespace hrvo {
 	 * \param[in]  vector  The two-dimensional vector which to insert into the output stream.
 	 * \return     A reference to the output stream.
 	 */
-	HRVO_API std::ostream &operator<<(std::ostream &stream, const Vector2 &vector);
+	HRVO_EXPORT std::ostream &operator<<(std::ostream &stream, const Vector2 &vector);
 }
 
 #endif /* HRVO_VECTOR2_H_ */

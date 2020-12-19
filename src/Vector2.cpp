@@ -35,9 +35,7 @@
  * \brief  Defines the Vector2 class.
  */
 
-#ifndef HRVO_VECTOR2_H_
 #include "Vector2.h"
-#endif
 
 #include <ostream>
 

@@ -38,12 +38,7 @@
 #ifndef HRVO_GOAL_H_
 #define HRVO_GOAL_H_
 
-#ifndef HRVO_API_H_
-#include "API.h"
-#endif
-#ifndef HRVO_VECTOR2_H_
 #include "Vector2.h"
-#endif
 
 namespace hrvo {
 	class Simulator;

@@ -38,16 +38,11 @@
 #ifndef HRVO_SIMULATOR_H_
 #define HRVO_SIMULATOR_H_
 
-#ifndef HRVO_API_H_
-#include "API.h"
-#endif
-
 #include <limits>
 #include <vector>
 
-#ifndef HRVO_VECTOR2_H_
+#include "Export.h"
 #include "Vector2.h"
-#endif
 
 /**
  * \brief  Set to 0 for a holonomic agent; set to 1 for a differential-drive agent.
@@ -63,7 +58,7 @@ namespace hrvo {
 	 * \class  Simulator
 	 * \brief  The simulation.
 	 */
-	class HRVO_API Simulator {
+	class HRVO_EXPORT Simulator {
 	public:
 		/**
 		 * \brief  Constructor.
@@ -184,7 +179,10 @@ namespace hrvo {
 
 		/**
 		 * \brief      Returns the preferred speed of a specified agent.
-		 * \details    The preferred speed of an agent is the speed it would choose to take if it were not influenced by other agents.
+     *
+		 * \details    The preferred speed of an agent is the speed it would choose
+		 *             to take if it were not influenced by other agents.
+		 *
 		 * \param[in]  agentNo  The number of the agent whose preferred speed is to be retrieved.
 		 * \return     The present preferred speed of the agent.
 		 */
@@ -214,7 +212,11 @@ namespace hrvo {
 
 		/**
 		 * \brief      Returns the "time to orientation" of a specified agent.
-		 * \details    The time to orientation is the time period that a differential-drive agent is given to assume the orientation defined by its new velocity.
+		 *
+		 * \details    The time to orientation is the time period that a
+		 *             differential-drive agent is given to assume the orientatio
+		 *             defined by its new velocity.
+		 *
 		 * \param[in]  agentNo  The number of the agent whose time to orientation is to be retrieved.
 		 * \return     The present time to orientation of the agent.
 		 */
@@ -223,7 +225,11 @@ namespace hrvo {
 
 		/**
 		 * \brief      Returns the "uncertainty offset" of a specified agent.
-		 * \details    The uncertainty offset is the amount velocity obstacles are widened to allow for uncertainty in the position and velocity of a differential drive agent.
+		 *
+		 * \details    The uncertainty offset is the amount velocity obstacles are
+		 *             widened to allow for uncertainty in the position and velocity
+		 *             of a differential drive agent.
+		 *
 		 * \param[in]  agentNo  The number of the agent whose uncertainty offset is to be retrieved.
 		 * \return     The present uncertainty offset of the agent.
 		 */
@@ -359,7 +365,10 @@ namespace hrvo {
 
 		/**
 		 * \brief      Sets the preferred speed of a specified agent.
-		 * \details    The preferred speed of an agent is the speed it would choose to take if it were not influenced by other agents.
+		 *
+		 * \details    The preferred speed of an agent is the speed it would choose
+		 *             to take if it were not influenced by other agents.
+		 *
 		 * \param[in]  agentNo    The number of the agent whose preferred speed is to be modified.
 		 * \param[in]  prefSpeed  The replacement preferred speed.
 		 */
@@ -375,7 +384,11 @@ namespace hrvo {
 #if HRVO_DIFFERENTIAL_DRIVE
 		/**
 		 * \brief      Sets the "time to orientation" of a specified agent.
-		 * \details    The time to orientation is the time period that a differential-drive agent is given to assume the orientation defined by its new velocity.
+		 *
+		 * \details    The time to orientation is the time period that a
+		 *             differential-drive agent is given to assume the orientation
+		 *             defined by its new velocity.
+		 *
 		 * \param[in]  agentNo            The number of the agent whose time to orientation is to be modified.
 		 * \param[in]  timeToOrientation  The replacement time to orientation.
 		 */
@@ -391,7 +404,11 @@ namespace hrvo {
 
 		/**
 		 * \brief      Sets the "uncertainty offset" of a specified agent.
-		 * \details    The uncertainty offset is the amount velocity obstacles are widened to allow for uncertainty in the position and velocity of a differential drive agent.
+		 *
+		 * \details    The uncertainty offset is the amount velocity obstacles ar
+		 *             widened to allow for uncertainty in the position and velocity
+		 *             of a differential drive agent.
+		 *
 		 * \param[in]  agentNo            The number of the agent whose uncertainty offset is to be modified.
 		 * \param[in]  uncertaintyOffset  The replacement uncertainty offset.
 		 */

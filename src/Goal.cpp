@@ -35,9 +35,7 @@
  * \brief  Defines the Goal class.
  */
 
-#ifndef HRVO_GOAL_H_
 #include "Goal.h"
-#endif
 
 namespace hrvo {
 	Goal::Goal(const Vector2 &position) : position_(position) { }

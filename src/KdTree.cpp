@@ -35,22 +35,14 @@
  * \brief  Defines the KdTree class.
  */
 
-#ifndef HRVO_KD_TREE_H_
 #include "KdTree.h"
-#endif
 
 #include <algorithm>
 #include <limits>
 
-#ifndef HRVO_AGENT_H_
 #include "Agent.h"
-#endif
-#ifndef HRVO_DEFINITIONS_H_
 #include "Definitions.h"
-#endif
-#ifndef HRVO_SIMULATOR_H_
 #include "Simulator.h"
-#endif
 
 namespace hrvo {
 	KdTree::KdTree(Simulator *simulator) : simulator_(simulator) { }

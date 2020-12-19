@@ -1,8 +1,5 @@
-# -*- mode: cmake -*-
-# vi: set ft=cmake :
-
 #
-# examples/CMakeLists.txt
+# HRVO.pc
 # HRVO Library
 #
 # Copyright 2009 University of North Carolina at Chapel Hill
@@ -33,25 +30,14 @@
 # <https://gamma.cs.unc.edu/HRVO/>
 #
 
-if(BUILD_TESTING)
-  add_executable(Circle Circle.cpp)
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=${exec_prefix}/@HRVO_LIBRARY_DIR@
+includedir=${prefix}/@HRVO_INCLUDE_DIR@
 
-  option(OUTPUT_TIME_AND_POSITIONS "Output time and positions" ON)
-
-  if(OUTPUT_TIME_AND_POSITIONS)
-    set(HRVO_EXAMPLES_COMPILE_DEFINITIONS HRVO_OUTPUT_TIME_AND_POSITIONS=1)
-  else()
-    set(HRVO_EXAMPLES_COMPILE_DEFINITIONS HRVO_OUTPUT_TIME_AND_POSITIONS=0)
-  endif()
-
-  target_compile_definitions(Circle PRIVATE
-    ${HRVO_EXAMPLES_COMPILE_DEFINITIONS})
-  target_link_libraries(Circle PRIVATE ${HRVO_LIBRARY})
-
-  if(ENABLE_INTERPROCEDURAL_OPTIMIZATION
-      AND HRVO_INTERPROCEDURAL_OPTIMIZATION_SUPPORTED)
-    set_target_properties(Circle PROPERTIES INTERPROCEDURAL_OPTIMIZATION ON)
-  endif()
-
-  add_test(NAME Circle COMMAND Circle)
-endif()
+Name: @HRVO_NAME@
+Description: @PROJECT_DESCRIPTION@
+URL: @HRVO_HOMEPAGE_URL@
+Version: @PROJECT_VERSION@
+Libs: -L${libdir} -l@HRVO_LIBRARY@
+Cflags: -I${includedir}

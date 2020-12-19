@@ -35,26 +35,20 @@
  * \brief  Defines the Agent class.
  */
 
-#ifndef HRVO_AGENT_H_
 #include "Agent.h"
-#endif
 
 #include <algorithm>
 #include <cmath>
 #include <limits>
 
-#ifndef HRVO_DEFINITIONS_H_
 #include "Definitions.h"
-#endif
-#ifndef HRVO_GOAL_H_
 #include "Goal.h"
-#endif
-#ifndef HRVO_KD_TREE_H_
 #include "KdTree.h"
-#endif
 
 namespace hrvo {
+#if HRVO_DIFFERENTIAL_DRIVE
 	const float HRVO_PI = 3.141592653589793f;
+#endif /* HRVO_DIFFERENTIAL_DRIVE */
 
 	Agent::Agent(Simulator *simulator) : simulator_(simulator), goalNo_(0), maxNeighbors_(0), goalRadius_(0.0f), maxAccel_(0.0f), maxSpeed_(0.0f), neighborDist_(0.0f), orientation_(0.0f), prefSpeed_(0.0f), radius_(0.0f), uncertaintyOffset_(0.0f),
 #if HRVO_DIFFERENTIAL_DRIVE

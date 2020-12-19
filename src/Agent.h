@@ -38,22 +38,14 @@
 #ifndef HRVO_AGENT_H_
 #define HRVO_AGENT_H_
 
-#ifndef HRVO_API_H_
-#include "API.h"
-#endif
-
 #include <cstddef>
 #include <map>
 #include <set>
 #include <utility>
 #include <vector>
 
-#ifndef HRVO_SIMULATOR_H_
 #include "Simulator.h"
-#endif
-#ifndef HRVO_VECTOR2_H_
 #include "Vector2.h"
-#endif
 
 namespace hrvo {
 	/**

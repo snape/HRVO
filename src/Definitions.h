@@ -38,10 +38,6 @@
 #ifndef HRVO_DEFINITIONS_H_
 #define HRVO_DEFINITIONS_H_
 
-#ifndef HRVO_API_H_
-#include "API.h"
-#endif
-
 namespace hrvo {
 	/**
 	 * \brief  A sufficiently small positive float.

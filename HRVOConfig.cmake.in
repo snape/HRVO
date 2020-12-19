@@ -2,7 +2,7 @@
 # vi: set ft=cmake :
 
 #
-# examples/CMakeLists.txt
+# HRVOConfig.cmake
 # HRVO Library
 #
 # Copyright 2009 University of North Carolina at Chapel Hill
@@ -33,25 +33,18 @@
 # <https://gamma.cs.unc.edu/HRVO/>
 #
 
-if(BUILD_TESTING)
-  add_executable(Circle Circle.cpp)
+@PACKAGE_INIT@
 
-  option(OUTPUT_TIME_AND_POSITIONS "Output time and positions" ON)
+set(HRVO_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(HRVO_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(HRVO_VERSION_PATCH @PROJECT_VERSION_PATCH@)
 
-  if(OUTPUT_TIME_AND_POSITIONS)
-    set(HRVO_EXAMPLES_COMPILE_DEFINITIONS HRVO_OUTPUT_TIME_AND_POSITIONS=1)
-  else()
-    set(HRVO_EXAMPLES_COMPILE_DEFINITIONS HRVO_OUTPUT_TIME_AND_POSITIONS=0)
-  endif()
+set(HRVO_VERSION @PROJECT_VERSION@)
 
-  target_compile_definitions(Circle PRIVATE
-    ${HRVO_EXAMPLES_COMPILE_DEFINITIONS})
-  target_link_libraries(Circle PRIVATE ${HRVO_LIBRARY})
+set_and_check(HRVO_INCLUDE_DIRS "@PACKAGE_HRVO_INCLUDE_DIR@")
+set_and_check(HRVO_LIBRARY_DIRS "@PACKAGE_HRVO_LIBRARY_DIR@")
+set(HRVO_LIBRARIES @PROJECT_NAME@::@HRVO_LIBRARY@)
 
-  if(ENABLE_INTERPROCEDURAL_OPTIMIZATION
-      AND HRVO_INTERPROCEDURAL_OPTIMIZATION_SUPPORTED)
-    set_target_properties(Circle PROPERTIES INTERPROCEDURAL_OPTIMIZATION ON)
-  endif()
+check_required_components(@PROJECT_NAME@)
 
-  add_test(NAME Circle COMMAND Circle)
-endif()
+include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")

@@ -47,17 +47,22 @@
  * \mainpage   HRVO Library Documentation
  * \authors    Jamie Snape, Jur van den Berg, Stephen J. Guy, and Dinesh Manocha
  * \copyright  2009 University of North Carolina at Chapel Hill
- * \details    We present the hybrid reciprocal velocity obstacle for collision-free and oscillation-free navigation of multiple mobile robots or virtual agents. Each robot or virtual agents senses its surroundings and acts independently without central coordination or communication with other robots or virtual agents. Our approach uses both the current position and the velocity of other robots or virtual agents to compute their future trajectories in order to avoid collisions. Moreover, our approach is reciprocal and avoids oscillations by explicitly taking into account that the other robots or virtual agents also sense their surroundings and change their trajectories accordingly.
+ *
+ * \details    We present the hybrid reciprocal velocity obstacle for
+ *             collision-free and oscillation-free navigation of multiple mobile
+ *             robots or virtual agents. Each robot or virtual agents senses its
+ *             surroundings and acts independently without central coordination
+ *             or communication with other robots or virtual agents. Our
+ *             approach uses both the current position and the velocity of other
+ *             robots or virtual agents to compute their future trajectories in
+ *             order to avoid collisions. Moreover, our approach is reciprocal
+ *             and avoids oscillations by explicitly taking into account that
+ *             the other robots or virtual agents also sense their surroundings
+ *             and change their trajectories accordingly.
  */
 
-#ifndef HRVO_API_H_
-#include "API.h"
-#endif
-#ifndef HRVO_SIMULATOR_H_
+#include "Export.h"
 #include "Simulator.h"
-#endif
-#ifndef HRVO_VECTOR2_H_
 #include "Vector2.h"
-#endif
 
 #endif
