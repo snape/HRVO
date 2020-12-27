@@ -24,7 +24,7 @@ jobs:
           brew uninstall -q bazelisk
           brew bundle install --no-lock
         shell: zsh -efuo pipefail {0}
-      - name: build and test
+      - name: build test package
         run: bazel test ...
         shell: zsh -efuo pipefail {0}
 
@@ -58,7 +58,7 @@ jobs:
           apt-get update -qq
           apt-get install -o Dpkg::Use-Pty=0 -qq --no-install-recommends bazel
         shell: bash
-      - name: build and test
+      - name: build test package
         run: bazel test ...
         shell: bash
 
@@ -75,14 +75,14 @@ jobs:
           brew uninstall -q bazelisk
           brew bundle install --no-lock
         shell: zsh -efuo pipefail {0}
-      - name: build and test
+      - name: build test package
         run: |
           mkdir _build
           cd _build
           cmake \
             -DBUILD_DOCUMENTATION:BOOL=ON \
             -DBUILD_TESTING:BOOL=ON \
-            -DCMAKE_INSTALL_PREFIX:PATH=_install \
+            -DCMAKE_INSTALL_PREFIX:PATH=install \
             -DENABLE_HARDENING:BOOL=ON \
             -DENABLE_INTERPROCEDURAL_OPTIMIZATION:BOOL=ON \
             -DOUTPUT_TIME_AND_POSITIONS:BOOL=OFF \
@@ -92,6 +92,8 @@ jobs:
           cmake --build .
           ctest .
           cmake --install .
+          cpack -G TGZ
+          cpack -G TGZ --config CPackSourceConfig.cmake
         shell: zsh -efuo pipefail {0}
 
   cmake_ubuntu:
@@ -115,6 +117,9 @@ jobs:
           apt-get update -qq
           apt-get install -o Dpkg::Use-Pty=0 -qq --no-install-recommends \
             doxygen \
+            dpkg \
+            dpkg-dev \
+            file \
             g++ \
             gnupg \
             graphviz \
@@ -129,14 +134,14 @@ jobs:
           apt-get update -qq
           apt-get install -o Dpkg::Use-Pty=0 -qq --no-install-recommends cmake
         shell: bash
-      - name: build and test
+      - name: build test package
         run: |
           mkdir _build
           cd _build
           cmake \
             -DBUILD_DOCUMENTATION:BOOL=ON \
             -DBUILD_TESTING:BOOL=ON \
-            -DCMAKE_INSTALL_PREFIX:PATH=_install \
+            -DCMAKE_INSTALL_PREFIX:PATH=install \
             -DENABLE_HARDENING:BOOL=ON \
             -DENABLE_INTERPROCEDURAL_OPTIMIZATION:BOOL=ON \
             -DOUTPUT_TIME_AND_POSITIONS:BOOL=OFF \
@@ -146,6 +151,8 @@ jobs:
           cmake --build .
           ctest .
           cmake --install .
+          cpack -G DEB
+          cpack -G DEB --config CPackSourceConfig.cmake
         shell: bash
 
   cmake_windows:
@@ -156,18 +163,18 @@ jobs:
         uses: actions/checkout@v2
       - name: setup
         run: |
-          cinst cmake.install -f -r -y `
-            --install-arguments='ADD_CMAKE_TO_PATH=System'
+          cup cmake.install -r -y --install-arguments=ADD_CMAKE_TO_PATH=System `
+            --no-progress
           cinst doxygen.install -f -r -y
         shell: powershell
-      - name: build and test
+      - name: build test package
         run: |
           mkdir _build
           cd _build
           cmake `
             -DBUILD_DOCUMENTATION:BOOL=ON `
             -DBUILD_TESTING:BOOL=ON `
-            -DCMAKE_INSTALL_PREFIX:PATH=_install `
+            -DCMAKE_INSTALL_PREFIX:PATH=install `
             -DENABLE_HARDENING:BOOL=ON `
             -DENABLE_INTERPROCEDURAL_OPTIMIZATION:BOOL=ON `
             -DOUTPUT_TIME_AND_POSITIONS:BOOL=OFF `
@@ -177,4 +184,6 @@ jobs:
           cmake --build . --config Release
           ctest . --build-config Release
           cmake --install .
+          cpack -C Release -G ZIP
+          cpack -C Release -G ZIP --config CPackSourceConfig.cmake
         shell: powershell
