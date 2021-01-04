@@ -3,17 +3,16 @@ The Hybrid Reciprocal Velocity Obstacle
 
 <https://gamma.cs.unc.edu/HRVO/>
 
-We present the hybrid reciprocal velocity obstacle for collision-free and
-oscillation-free navigation of multiple mobile robots or virtual agents.
-Each robot senses its surroundings and acts independently without central
-coordination or communication with other robots. Our approach uses both
-the current position and the velocity of other robots to compute their
-future trajectories in order to avoid collisions. Moreover, our approach
-is reciprocal and avoids oscillations by explicitly taking into account
-that the other robots also sense their surroundings and change their
-trajectories accordingly. We apply hybrid reciprocal velocity obstacles
-to iRobot Create mobile robots and demonstrate direct, collision-free,
-and oscillation-free navigation.
+We present the hybrid reciprocal velocity obstacle (HRVO) for collision-free and
+oscillation-free navigation of multiple mobile robots or virtual agents. Each
+robot senses its surroundings and acts independently without central
+coordination or communication with other robots. Our approach uses both the
+current position and the velocity of other robots to compute their future
+trajectories in order to avoid collisions. Moreover, our approach is reciprocal
+and avoids oscillations by explicitly taking into account that the other robots
+also sense their surroundings and change their trajectories accordingly. We
+apply hybrid reciprocal velocity obstacles to iRobot Create mobile robots and
+demonstrate direct, collision-free, and oscillation-free navigation.
 
 ![Build Status](https://github.com/snape/HRVO/workflows/ci/badge.svg?branch=master)
 [![Build Status](https://travis-ci.com/snape/HRVO.svg?branch=master)](https://travis-ci.com/snape/HRVO)
@@ -24,7 +23,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-<https://www.apache.org/licenses/LICENSE-2.0>
+&nbsp;&nbsp;<https://www.apache.org/licenses/LICENSE-2.0>
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
