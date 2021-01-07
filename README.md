@@ -14,8 +14,8 @@ also sense their surroundings and change their trajectories accordingly. We
 apply hybrid reciprocal velocity obstacles to iRobot Create mobile robots and
 demonstrate direct, collision-free, and oscillation-free navigation.
 
-![Build Status](https://github.com/snape/HRVO/workflows/ci/badge.svg?branch=master)
-[![Build Status](https://travis-ci.com/snape/HRVO.svg?branch=master)](https://travis-ci.com/snape/HRVO)
+![Build Status](https://github.com/snape/HRVO/workflows/ci/badge.svg?branch=main)
+[![Build Status](https://travis-ci.com/snape/HRVO.svg?branch=main)](https://travis-ci.com/snape/HRVO)
 
 Copyright 2009 University of North Carolina at Chapel Hill
 
