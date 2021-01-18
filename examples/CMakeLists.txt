@@ -54,4 +54,7 @@ if(BUILD_TESTING)
   endif()
 
   add_test(NAME Circle COMMAND Circle)
+  set_tests_properties(Circle PROPERTIES
+    LABELS medium
+    TIMEOUT 60)
 endif()

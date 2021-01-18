@@ -39,7 +39,8 @@ licenses(["notice"])
 
 cc_test(
     name = "Circle",
-    size = "small",
+    size = "medium",
+    timeout = "short",
     srcs = ["Circle.cpp"],
     defines = ["HRVO_OUTPUT_TIME_AND_POSITIONS=0"],
     visibility = ["//visibility:public"],
