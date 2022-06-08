@@ -1,8 +1,5 @@
-# -*- mode: ruby; -*-
-# vi: set ft=ruby:
-
 #
-# Brewfile
+# requirements.txt
 # HRVO Library
 #
 # SPDX-FileCopyrightText: 2009 University of North Carolina at Chapel Hill
@@ -34,11 +31,5 @@
 # <https://gamma.cs.unc.edu/HRVO/>
 #
 
-brew 'bazel'
-brew 'buildifier'
-brew 'cmake'
-brew 'doxygen'
-brew 'gcc'
-brew 'graphviz'
-brew 'ninja'
-brew 'pkgconf'
+cmakelang
+reuse

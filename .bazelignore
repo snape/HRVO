@@ -35,5 +35,9 @@
 #
 
 _build/
+.circleci/
+.github/
+.idea/
 .reuse/
+cmake-build-*/
 cmake/
