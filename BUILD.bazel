@@ -5,7 +5,8 @@
 # BUILD.bazel
 # HRVO Library
 #
-# Copyright 2009 University of North Carolina at Chapel Hill
+# SPDX-FileCopyrightText: 2009 University of North Carolina at Chapel Hill
+# SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -50,6 +51,7 @@ pkg_tar(
     visibility = ["//visibility:private"],
 )
 
+# REUSE-IgnoreStart
 genrule(
     name = "pc",
     outs = ["HRVO.pc"],
@@ -59,7 +61,8 @@ cat << 'EOF' > $@
 # HRVO.pc
 # HRVO Library
 #
-# Copyright 2009 University of North Carolina at Chapel Hill
+# SPDX-FileCopyrightText: 2009 University of North Carolina at Chapel Hill
+# SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -93,7 +96,7 @@ libdir=$${exec_prefix}/lib
 includedir=$${prefix}/include/HRVO
 
 Name: HRVO Library
-Description: Reciprocal Collision Avoidance with Acceleration-Velocity Obstacles
+Description: The Hybrid Reciprocal Velocity Obstacle
 URL: https://gamma.cs.unc.edu/HRVO/
 Version: 1.1.0
 Libs: -L$${libdir} -lHRVO
@@ -102,6 +105,7 @@ EOF
 """,
     visibility = ["//visibility:private"],
 )
+# REUSE-IgnoreEnd
 
 pkg_tar(
     name = "pkgconfig",
