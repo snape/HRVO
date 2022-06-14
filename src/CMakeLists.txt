@@ -40,15 +40,15 @@ set(HRVO_HEADERS
   Vector2.h)
 
 set(HRVO_SOURCES
-  Agent.cpp
+  Agent.cc
   Agent.h
   Definitions.h
-  Goal.cpp
+  Goal.cc
   Goal.h
-  KdTree.cpp
+  KdTree.cc
   KdTree.h
-  Simulator.cpp
-  Vector2.cpp)
+  Simulator.cc
+  Vector2.cc)
 
 add_library(${HRVO_LIBRARY} ${HRVO_HEADERS} ${HRVO_SOURCES})
 

@@ -1,5 +1,5 @@
 /*
- * Vector2.cpp
+ * Circle.cc
  * HRVO Library
  *
  * SPDX-FileCopyrightText: 2009 University of North Carolina at Chapel Hill
@@ -32,19 +32,52 @@
  */
 
 /**
- * \file   Vector2.cpp
- * \brief  Defines the Vector2 class.
+ * \file   Circle.cc
+ * \brief  Example with 250 agents navigating through a circular environment.
  */
 
-#include "Vector2.h"
+#ifndef HRVO_OUTPUT_TIME_AND_POSITIONS
+#define HRVO_OUTPUT_TIME_AND_POSITIONS 1
+#endif
 
-#include <ostream>
+#include <cmath>
 
-namespace hrvo {
-	std::ostream &operator<<(std::ostream &stream, const Vector2 &vector)
-	{
-		stream << vector.getX() << " " << vector.getY();
+#if HRVO_OUTPUT_TIME_AND_POSITIONS
+#include <iostream>
+#endif
 
-		return stream;
+#include <HRVO.h>
+
+using namespace hrvo;
+
+const float HRVO_TWO_PI = 6.283185307179586f;
+
+int main()
+{
+	Simulator simulator;
+
+	simulator.setTimeStep(0.25f);
+	simulator.setAgentDefaults(15.0f, 10, 1.5f, 1.5f, 1.0f, 2.0f);
+
+	for (std::size_t i = 0; i < 250; ++i) {
+		const Vector2 position = 200.0f * Vector2(std::cos(0.004f * i * HRVO_TWO_PI), std::sin(0.004f * i * HRVO_TWO_PI));
+		simulator.addAgent(position, simulator.addGoal(-position));
 	}
+
+	do {
+#if HRVO_OUTPUT_TIME_AND_POSITIONS
+		std::cout << simulator.getGlobalTime();
+
+		for (std::size_t i = 0; i < simulator.getNumAgents(); ++i) {
+			std::cout << " " << simulator.getAgentPosition(i);
+		}
+
+		std::cout << std::endl;
+#endif /* HRVO_OUTPUT_TIME_AND_POSITIONS */
+
+		simulator.doStep();
+	}
+	while (!simulator.haveReachedGoals());
+
+	return 0;
 }

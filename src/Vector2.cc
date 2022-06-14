@@ -1,5 +1,5 @@
 /*
- * Goal.cpp
+ * Vector2.cc
  * HRVO Library
  *
  * SPDX-FileCopyrightText: 2009 University of North Carolina at Chapel Hill
@@ -32,12 +32,19 @@
  */
 
 /**
- * \file   Goal.cpp
- * \brief  Defines the Goal class.
+ * \file   Vector2.cc
+ * \brief  Defines the Vector2 class.
  */
 
-#include "Goal.h"
+#include "Vector2.h"
+
+#include <ostream>
 
 namespace hrvo {
-	Goal::Goal(const Vector2 &position) : position_(position) { }
+	std::ostream &operator<<(std::ostream &stream, const Vector2 &vector)
+	{
+		stream << vector.getX() << " " << vector.getY();
+
+		return stream;
+	}
 }

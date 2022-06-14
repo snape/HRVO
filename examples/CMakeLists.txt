@@ -35,7 +35,7 @@
 #
 
 if(BUILD_TESTING)
-  add_executable(Circle Circle.cpp)
+  add_executable(Circle Circle.cc)
 
   option(OUTPUT_TIME_AND_POSITIONS "Output time and positions" ON)
 

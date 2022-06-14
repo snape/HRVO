@@ -1,5 +1,5 @@
 /*
- * KdTree.cpp
+ * KdTree.cc
  * HRVO Library
  *
  * SPDX-FileCopyrightText: 2009 University of North Carolina at Chapel Hill
@@ -32,7 +32,7 @@
  */
 
 /**
- * \file   KdTree.cpp
+ * \file   KdTree.cc
  * \brief  Defines the KdTree class.
  */
 

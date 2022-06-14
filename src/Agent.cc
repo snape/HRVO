@@ -1,5 +1,5 @@
 /*
- * Agent.cpp
+ * Agent.cc
  * HRVO Library
  *
  * SPDX-FileCopyrightText: 2009 University of North Carolina at Chapel Hill
@@ -32,7 +32,7 @@
  */
 
 /**
- * \file   Agent.cpp
+ * \file   Agent.cc
  * \brief  Defines the Agent class.
  */
 

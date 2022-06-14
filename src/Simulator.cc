@@ -1,5 +1,5 @@
 /*
- * Simulator.cpp
+ * Simulator.cc
  * HRVO Library
  *
  * SPDX-FileCopyrightText: 2009 University of North Carolina at Chapel Hill
@@ -32,7 +32,7 @@
  */
 
 /**
- * \file   Simulator.cpp
+ * \file   Simulator.cc
  * \brief  Defines the Simulator class.
  */
 
