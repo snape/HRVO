@@ -1,8 +1,8 @@
-# -*- mode: ruby; -*-
-# vi: set ft=ruby:
+# -*- mode: yaml; -*-
+# vi: set ft=yaml:
 
 #
-# Brewfile
+# .clang-format
 # HRVO Library
 #
 # SPDX-FileCopyrightText: 2009 University of North Carolina at Chapel Hill
@@ -34,15 +34,5 @@
 # <https://gamma.cs.unc.edu/HRVO/>
 #
 
-brew 'bazel'
-brew 'buildifier'
-brew 'cmake'
-brew 'cpplint
-brew 'doxygen'
-brew 'gcc'
-brew 'graphviz'
-brew 'include-what-you-use'
-brew 'llvm'
-brew 'ninja'
-brew 'pkgconf'
-brew 'python'
+---
+BasedOnStyle: Google

@@ -40,20 +40,17 @@
 #define HRVO_DEFINITIONS_H_
 
 namespace hrvo {
-	/**
-	 * \brief  A sufficiently small positive float.
-	 */
-	const float HRVO_EPSILON = 0.00001f;
+/**
+ * \brief  A sufficiently small positive float.
+ */
+const float HRVO_EPSILON = 0.00001F;
 
-	/**
-	 * \brief      Computes the square of a float.
-	 * \param[in]  scalar  The float to be squared.
-	 * \return     The square of the float.
-	 */
-	inline float sqr(float scalar)
-	{
-		return scalar * scalar;
-	}
-}
+/**
+ * \brief      Computes the square of a float.
+ * \param[in]  scalar  The float to be squared.
+ * \return     The square of the float.
+ */
+inline float sqr(float scalar) { return scalar * scalar; }
+} /* namespace hrvo */
 
 #endif /* HRVO_DEFINITIONS_H_ */

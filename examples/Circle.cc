@@ -41,43 +41,44 @@
 #endif
 
 #include <cmath>
+#include <cstddef>
 
 #if HRVO_OUTPUT_TIME_AND_POSITIONS
 #include <iostream>
 #endif
 
-#include <HRVO.h>
+#include "Simulator.h"
+#include "Vector2.h"
 
-using namespace hrvo;
+const float HRVO_TWO_PI = 6.283185307179586F;
 
-const float HRVO_TWO_PI = 6.283185307179586f;
+int main() {
+  hrvo::Simulator simulator;
 
-int main()
-{
-	Simulator simulator;
+  simulator.setTimeStep(0.25F);
+  simulator.setAgentDefaults(15.0F, 10, 1.5F, 1.5F, 1.0F, 2.0F);
 
-	simulator.setTimeStep(0.25f);
-	simulator.setAgentDefaults(15.0f, 10, 1.5f, 1.5f, 1.0f, 2.0f);
+  for (std::size_t i = 0; i < 250; ++i) {
+    const hrvo::Vector2 position =
+        200.0F *
+        hrvo::Vector2(std::cos(0.004F * static_cast<float>(i) * HRVO_TWO_PI),
+                      std::sin(0.004F * static_cast<float>(i) * HRVO_TWO_PI));
+    simulator.addAgent(position, simulator.addGoal(-position));
+  }
 
-	for (std::size_t i = 0; i < 250; ++i) {
-		const Vector2 position = 200.0f * Vector2(std::cos(0.004f * i * HRVO_TWO_PI), std::sin(0.004f * i * HRVO_TWO_PI));
-		simulator.addAgent(position, simulator.addGoal(-position));
-	}
-
-	do {
+  do {
 #if HRVO_OUTPUT_TIME_AND_POSITIONS
-		std::cout << simulator.getGlobalTime();
+    std::cout << simulator.getGlobalTime();
 
-		for (std::size_t i = 0; i < simulator.getNumAgents(); ++i) {
-			std::cout << " " << simulator.getAgentPosition(i);
-		}
+    for (std::size_t i = 0; i < simulator.getNumAgents(); ++i) {
+      std::cout << " " << simulator.getAgentPosition(i);
+    }
 
-		std::cout << std::endl;
+    std::cout << std::endl;
 #endif /* HRVO_OUTPUT_TIME_AND_POSITIONS */
 
-		simulator.doStep();
-	}
-	while (!simulator.haveReachedGoals());
+    simulator.doStep();
+  } while (!simulator.haveReachedGoals());
 
-	return 0;
+  return 0;
 }

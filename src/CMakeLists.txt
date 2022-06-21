@@ -42,6 +42,7 @@ set(HRVO_HEADERS
 set(HRVO_SOURCES
   Agent.cc
   Agent.h
+  Definitions.cc
   Definitions.h
   Goal.cc
   Goal.h

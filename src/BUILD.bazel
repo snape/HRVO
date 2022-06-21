@@ -83,19 +83,19 @@ cat << 'EOF' > $@
 
 #ifdef HRVO_STATIC_DEFINE
 #define HRVO_EXPORT
-#else
+#else /* HRVO_STATIC_DEFINE */
 #ifdef _WIN32
 #ifdef HRVO_EXPORTS
 #define HRVO_EXPORT __declspec(dllexport)
-#else
+#else /* HRVO_EXPORTS */
 #define HRVO_EXPORT __declspec(dllimport)
-#endif
-#else
+#endif /* HRVO_EXPORTS */
+#else /* _WIN32 */
 #define HRVO_EXPORT __attribute__((visibility("default")))
-#endif
-#endif
+#endif /* _WIN32 */
+#endif /* HRVO_STATIC_DEFINE */
 
-#endif  // HRVO_EXPORT_H_
+#endif /* HRVO_EXPORT_H_ */
 EOF
 """,
     visibility = ["//visibility:private"],
@@ -118,6 +118,7 @@ cc_library(
     srcs = [
         "Agent.cc",
         "Agent.h",
+        "Definitions.cc",
         "Definitions.h",
         "Goal.cc",
         "Goal.h",

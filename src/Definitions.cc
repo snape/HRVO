@@ -1,5 +1,5 @@
 /*
- * Goal.cc
+ * Definitions.cc
  * HRVO Library
  *
  * SPDX-FileCopyrightText: 2009 University of North Carolina at Chapel Hill
@@ -32,12 +32,8 @@
  */
 
 /**
- * \file   Goal.cc
- * \brief  Defines the Goal class.
+ * \file   Definitions.cc
+ * \brief  Defines internal functions.
  */
 
-#include "Goal.h"
-
-namespace hrvo {
-Goal::Goal(const Vector2 &position) : position_(position) {}
-} /* namespace hrvo */
+#include "Definitions.h"

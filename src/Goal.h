@@ -42,25 +42,22 @@
 #include "Vector2.h"
 
 namespace hrvo {
-	class Simulator;
+/**
+ * \brief  A goal in the simulation.
+ */
+class Goal {
+ private:
+  /**
+   * \brief      Constructor.
+   * \param[in]  position  The position of this goal.
+   */
+  explicit Goal(const Vector2 &position);
 
-	/**
-	 * \class  Goal
-	 * \brief  A goal in the simulation.
-	 */
-	class Goal {
-	private:
-		/**
-		 * \brief      Constructor.
-		 * \param[in]  position  The position of this goal.
-		 */
-		explicit Goal(const Vector2 &position);
+  Vector2 position_;
 
-		Vector2 position_;
-
-		friend class Agent;
-		friend class Simulator;
-	};
-}
+  friend class Agent;
+  friend class Simulator;
+};
+} /* namespace hrvo */
 
 #endif /* HRVO_GOAL_H_ */
