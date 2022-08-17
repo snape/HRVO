@@ -1,8 +1,5 @@
-# -*- mode: ruby; -*-
-# vi: set ft=ruby:
-
 #
-# Brewfile
+# compose.yaml
 # HRVO Library
 #
 # SPDX-FileCopyrightText: 2009 University of North Carolina at Chapel Hill
@@ -34,19 +31,11 @@
 # <https://gamma.cs.unc.edu/HRVO/>
 #
 
-brew 'bazel'
-brew 'buildifier'
-brew 'cmake'
-brew 'cppcheck'
-brew 'cpplint'
-brew 'doxygen'
-brew 'gcc'
-brew 'graphviz'
-brew 'include-what-you-use'
-brew 'jsonlint'
-brew 'llvm'
-brew 'markdownlint-cli'
-brew 'ninja'
-brew 'pkgconf'
-brew 'python'
-brew 'yamllint'
+---
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspace:cached

@@ -1,0 +1,26 @@
+{
+  "name": "HRVO",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bazelbuild.vscode-bazel",
+        "editorconfig.editorconfig",
+        "ms-vscode.cmake-tools",
+        "ms-vscode.cpptools",
+        "ms-vscode-remote.remote-containers",
+        "redhat.vscode-yaml"
+      ],
+      "settings": {
+        "cmake.buildDirectory": "${workspaceFolder}/_build",
+        "cmake.preferredGenerators": [
+          "Ninja Multi-Config",
+          "Ninja"
+        ]
+      }
+    }
+  },
+  "dockerComposeFile": "../compose.yaml",
+  "overrideCommand": true,
+  "service": "dev",
+  "workspaceFolder": "/workspace"
+}
