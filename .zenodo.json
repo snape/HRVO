@@ -1,0 +1,50 @@
+{
+  "upload_type": "software",
+  "title": "The Hybrid Reciprocal Velocity Obstacle",
+  "creators": [
+    {
+      "name": "Snape, Jamie",
+      "affiliation": "University of North Carolina at Chapel Hill",
+      "orcid": "0000-0002-3326-9765",
+    },
+    {
+      "name": "Van den Berg, Jur",
+      "affiliation": "University of North Carolina at Chapel Hill",
+    },
+    {
+      "name": "Guy, Stephen J.",
+      "affiliation": "University of North Carolina at Chapel Hill",
+      "orcid": "0000-0001-8986-5817"
+    },
+    {
+      "name": "Manocha, Dinesh",
+      "affiliation": "University of North Carolina at Chapel Hill",
+      "orcid": "0000-0001-7047-9801"
+    }
+  ],
+  "description": "We present the hybrid reciprocal velocity obstacle (HRVO) for collision-free and oscillation-free navigation of multiple mobile robots or virtual agents. Each robot senses its surroundings and acts independently without central coordination or communication with other robots. Our approach uses both the current position and the velocity of other robots to compute their future trajectories in order to avoid collisions. Moreover, our approach is reciprocal and avoids oscillations by explicitly taking into account that the other robots also sense their surroundings and change their trajectories accordingly. We apply hybrid reciprocal velocity obstacles to iRobot Create mobile robots and demonstrate direct, collision-free, and oscillation-free navigation.",
+  "access_right": "open",
+  "license": {
+    "id": "Apache-2.0",
+    "title": "Apache License 2.0",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0"
+  },
+  "keywords": [
+    "collision avoidance",
+    "mobile robots",
+    "motion planning",
+    "multi-robot systems",
+    "navigation"
+  ],
+  "grants": [
+    {
+      "id": "10.13039/100000001::0636208"
+    },
+    {
+      "id": "10.13039/100000001::0917040"
+    },
+    {
+      "id": "10.13039/100000001::0904990"
+    }
+  ]
+}

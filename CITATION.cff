@@ -1,0 +1,249 @@
+# -*- mode: yaml; -*-
+# vi: set ft=yaml:
+
+#
+# CITATION.cff
+# HRVO Library
+#
+# SPDX-FileCopyrightText: 2009 University of North Carolina at Chapel Hill
+# SPDX-License-Identifier: CC-BY-SA-4.0
+#
+# Creative Commons Attribution-ShareAlike 4.0 International Public License
+#
+# You are free to:
+#
+# * Share -- copy and redistribute the material in any medium or format
+#
+# * ShareAlike -- If you remix, transform, or build upon the material, you must
+#   distribute your contributions under the same license as the original
+#
+# * Adapt -- remix, transform, and build upon the material for any purpose, even
+#   commercially.
+#
+# The licensor cannot revoke these freedoms as long as you follow the license
+# terms.
+#
+# Under the following terms:
+#
+# * Attribution -- You must give appropriate credit, provide a link to the
+#   license, and indicate if changes were made. You may do so in any reasonable
+#   manner, but not in any way that suggests the licensor endorses you or your
+#   use.
+#
+# * No additional restrictions -- You may not apply legal terms or technological
+#   measures that legally restrict others from doing anything the license
+#   permits.
+#
+# Notices:
+#
+# * You do not have to comply with the license for elements of the material in
+#   the public domain or where your use is permitted by an applicable exception
+#   or limitation.
+#
+# * No warranties are given. The license may not give you all of the permissions
+#   necessary for your intended use. For example, other rights such as
+#   publicity, privacy, or moral rights may limit how you use the material.
+#
+# Please send all bug reports to <geom@cs.unc.edu>.
+#
+# The authors may be contacted via:
+#
+# Jamie Snape, Jur van den Berg, Stephen J. Guy, and Dinesh Manocha
+# Dept. of Computer Science
+# 201 S. Columbia St.
+# Frederick P. Brooks, Jr. Computer Science Bldg.
+# Chapel Hill, N.C. 27599-3175
+# United States of America
+#
+# <https://gamma.cs.unc.edu/HRVO/>
+#
+
+---
+cff-version: 1.2.0
+abstract: >-
+  We present the hybrid reciprocal velocity obstacle (HRVO) for collision-free
+  and oscillation-free navigation of multiple mobile robots or virtual agents.
+  Each robot senses its surroundings and acts independently without central
+  coordination or communication with other robots. Our approach uses both the
+  current position and the velocity of other robots to compute their future
+  trajectories in order to avoid collisions. Moreover, our approach is
+  reciprocal and avoids oscillations by explicitly taking into account that the
+  other robots also sense their surroundings and change their trajectories
+  accordingly. We apply hybrid reciprocal velocity obstacles to iRobot Create
+  mobile robots and demonstrate direct, collision-free, and oscillation-free
+  navigation.
+authors:
+  - address: >-
+      201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+    affiliation: 'University of North Carolina at Chapel Hill'
+    city: 'Chapel Hill'
+    country: US
+    family-names: Snape
+    given-names: Jamie
+    orcid: 'https://orcid.org/0000-0002-3326-9765'
+    post-code: 27599
+    region: NC
+    website: 'https://www.jamiesnape.io/'
+  - address: >-
+      201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+    affiliation: 'University of North Carolina at Chapel Hill'
+    city: 'Chapel Hill'
+    country: US
+    family-names: Berg
+    given-names: Jur
+    name-particle: 'van den'
+    post-code: 27599
+    region: NC
+  - address: >-
+      201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+    affiliation: 'University of North Carolina at Chapel Hill'
+    city: 'Chapel Hill'
+    country: US
+    family-names: Guy
+    given-names: 'Stephen J.'
+    orcid: 'https://orcid.org/0000-0001-8986-5817'
+    post-code: 27599
+    region: NC
+    website: 'https://www-users.cse.umn.edu/~sjguy/'
+  - address: >-
+      201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+    affiliation: 'University of North Carolina at Chapel Hill'
+    city: 'Chapel Hill'
+    country: US
+    family-names: Manocha
+    given-names: Dinesh
+    orcid: 'https://orcid.org/0000-0001-7047-9801'
+    post-code: 27599
+    region: NC
+    website: 'https://www.cs.umd.edu/people/dmanocha/'
+identifiers:
+  - type: doi
+    value: '10.5281/zenodo.7039579'
+keywords:
+  - 'collision avoidance'
+  - 'mobile robots'
+  - 'motion planning'
+  - 'multi-robot systems'
+  - navigation
+license: 'Apache-2.0'
+message: >-
+  If you use this software, please cite it using the metadata from this file
+  and the metadata from 'preferred-citation'.
+preferred-citation:
+  abstract: >-
+    We present the hybrid reciprocal velocity obstacle (HRVO) for
+    collision-free and oscillation-free navigation of multiple mobile robots or
+    virtual agents. Each robot senses its surroundings and acts independently
+    without central coordination or communication with other robots. Our
+    approach uses both the current position and the velocity of other robots to
+    compute their future trajectories in order to avoid collisions. Moreover,
+    our approach is reciprocal and avoids oscillations by explicitly taking
+    into account that the other robots also sense their surroundings and change
+    their trajectories accordingly. We apply hybrid reciprocal velocity
+    obstacles to iRobot Create mobile robots and demonstrate direct,
+    collision-free, and oscillation-free navigation.
+  authors:
+    - address: >-
+        201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+      affiliation: 'University of North Carolina at Chapel Hill'
+      city: 'Chapel Hill'
+      country: US
+      family-names: Snape
+      given-names: Jamie
+      orcid: 'https://orcid.org/0000-0002-3326-9765'
+      post-code: 27599
+      region: NC
+      website: 'https://www.jamiesnape.io/'
+    - address: >-
+        201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+      affiliation: 'University of North Carolina at Chapel Hill'
+      city: 'Chapel Hill'
+      country: US
+      family-names: Berg
+      given-names: Jur
+      name-particle: 'van den'
+      post-code: 27599
+      region: NC
+    - address: >-
+        201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+      affiliation: 'University of North Carolina at Chapel Hill'
+      city: 'Chapel Hill'
+      country: US
+      family-names: Guy
+      given-names: 'Stephen J.'
+      orcid: 'https://orcid.org/0000-0001-8986-5817'
+      post-code: 27599
+      region: NC
+      website: 'https://www-users.cse.umn.edu/~sjguy/'
+    - address: >-
+        201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+      affiliation: 'University of North Carolina at Chapel Hill'
+      city: 'Chapel Hill'
+      country: US
+      family-names: Manocha
+      given-names: Dinesh
+      orcid: 'https://orcid.org/0000-0001-7047-9801'
+      post-code: 27599
+      region: NC
+      website: 'https://www.cs.umd.edu/people/dmanocha/'
+  contact:
+    - address: >-
+        201 S Columbia St, Frederick P. Brooks, Jr. Computer Science Bldg
+      affiliation: 'University of North Carolina at Chapel Hill'
+      city: 'Chapel Hill'
+      country: US
+      family-names: Snape
+      given-names: Jamie
+      orcid: 'https://orcid.org/0000-0002-3326-9765'
+      post-code: 27599
+      region: NC
+      website: 'https://www.jamiesnape.io/'
+  copyright: >-
+    Copyright © 2011 Institute of Electrical and Electronics Engineers
+  date-published: '2011-04-07'
+  editors:
+    - address: '306 N Wright St'
+      affiliation: 'University of Illinois Urbana-Champaign'
+      city: Urbana
+      country: US
+      family-names: Hutchinson
+      given-names: Seth
+      orcid: 'https://orcid.org/0000-0002-3949-6061'
+      post-code: 61801
+      region: IL
+      website: 'https://research.gatech.edu/seth-hutchinson/'
+  end: 706
+  identifiers:
+    - type: doi
+      value: '10.1109/TRO.2011.2120810'
+  issn: '1552-3098'
+  issue: 4
+  issue-date: 'August 2011'
+  keywords:
+    - 'collision avoidance'
+    - 'mobile robots'
+    - 'motion planning'
+    - 'multi-robot systems'
+    - navigation
+  publisher:
+    address: '3 Park Ave 17th Fl'
+    city: 'New York'
+    country: US
+    name: 'Institute of Electrical and Electronics Engineers'
+    post-code: 10016
+    region: NY
+  journal: 'IEEE Transactions on Robotics'
+  languages:
+    - en
+  month: 8
+  pages: 11
+  start: 696
+  title: 'The Hybrid Reciprocal Velocity Obstacle'
+  type: article
+  url: 'https://gamma.cs.unc.edu/HRVO/'
+  volume: 27
+  year: 2011
+repository-code: 'https://github.com/snape/HRVO'
+title: 'The Hybrid Reciprocal Velocity Obstacle'
+type: software
+url: 'https://gamma.cs.unc.edu/HRVO/'
