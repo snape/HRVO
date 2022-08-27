@@ -34,7 +34,7 @@
 # <https://gamma.cs.unc.edu/HRVO/>
 #
 
-brew 'bazel'
+brew 'bazel', conflicts_with: ['bazelisk']
 brew 'buildifier'
 brew 'cmake'
 brew 'cppcheck'
@@ -47,6 +47,6 @@ brew 'jsonlint'
 brew 'llvm'
 brew 'markdownlint-cli'
 brew 'ninja'
-brew 'pkgconf'
+brew 'pkgconf', conflicts_with: ['pkg-config']
 brew 'python'
 brew 'yamllint'
