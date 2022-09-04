@@ -36,7 +36,9 @@
 
 load("@rules_cc//cc:defs.bzl", "cc_test")
 
-licenses(["notice"])
+package(default_applicable_licenses = ["//:license"])
+
+licenses(["notice"])  # Apache-2.0
 
 cc_test(
     name = "Circle",
@@ -44,6 +46,7 @@ cc_test(
     timeout = "short",
     srcs = ["Circle.cc"],
     defines = ["HRVO_OUTPUT_TIME_AND_POSITIONS=0"],
-    visibility = ["//visibility:public"],
+    tags = ["block-network"],
+    visibility = ["//visibility:private"],
     deps = ["//src:HRVO"],
 )
