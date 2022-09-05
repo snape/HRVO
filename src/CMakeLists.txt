@@ -44,6 +44,7 @@ set(HRVO_SOURCES
   Agent.h
   Definitions.cc
   Definitions.h
+  Export.cc
   Goal.cc
   Goal.h
   KdTree.cc
