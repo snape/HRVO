@@ -83,8 +83,8 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     > /usr/share/keyrings/bazel-archive-keyring.gpg \
   && echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8' \
     > /etc/apt/sources.list.d/bazel.list \
-  && wget -qO - https://apt.kitware.com/keys/kitware-archive-latest.asc | gpg --dearmor - \
-    > /usr/share/keyrings/kitware-archive-keyring.gpg \
+  && wget -qO - https://apt.kitware.com/keys/kitware-archive-latest.asc \
+    | gpg --dearmor - > /usr/share/keyrings/kitware-archive-keyring.gpg \
   && echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu jammy main' \
     > /etc/apt/sources.list.d/kitware.list \
   && apt-get update -qq \
@@ -93,5 +93,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     cmake \
   && rm -rf /var/lib/apt/lists/* \
   && npm install -g \
+    @bazel/buildifier \
     jsonlint \
     markdownlint-cli
