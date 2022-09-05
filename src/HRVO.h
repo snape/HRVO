@@ -62,8 +62,10 @@
  *             and change their trajectories accordingly.
  */
 
+/* IWYU pragma: begin_exports */
 #include "Export.h"
 #include "Simulator.h"
 #include "Vector2.h"
+/* IWYU pragma: end_exports */
 
-#endif
+#endif /* HRVO_HRVO_H_ */

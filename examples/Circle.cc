@@ -47,8 +47,7 @@
 #include <iostream>
 #endif
 
-#include "Simulator.h"
-#include "Vector2.h"
+#include "HRVO.h"
 
 const float HRVO_TWO_PI = 6.283185307179586F;
 
