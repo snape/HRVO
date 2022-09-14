@@ -120,8 +120,6 @@ cc_library(
     srcs = [
         "Agent.cc",
         "Agent.h",
-        "Definitions.cc",
-        "Definitions.h",
         "Export.cc",
         "Goal.cc",
         "Goal.h",

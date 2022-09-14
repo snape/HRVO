@@ -32,8 +32,8 @@
  */
 
 /**
- * \file   Agent.cc
- * \brief  Defines the Agent class.
+ * @file  Agent.cc
+ * @brief Defines the Agent class.
  */
 
 #include "Agent.h"
@@ -42,19 +42,56 @@
 #include <limits>
 #include <map>
 
-#include "Definitions.h"
 #include "Goal.h"
 #include "KdTree.h"
+#include "Simulator.h"
 
 namespace hrvo {
+namespace {
 #if HRVO_DIFFERENTIAL_DRIVE
 const float HRVO_PI = 3.141592653589793F;
 #endif /* HRVO_DIFFERENTIAL_DRIVE */
+} /* namespace */
+
+class Agent::Candidate {
+ public:
+  Candidate();
+
+  Vector2 position_;
+  int velocityObstacle1_;
+  int velocityObstacle2_;
+};
+
+Agent::Candidate::Candidate() : velocityObstacle1_(0), velocityObstacle2_(0) {}
+
+/**
+ * @brief A hybrid reciprocal velocity obstacle.
+ */
+class Agent::VelocityObstacle {
+ public:
+  /**
+   * @brief The position of the apex of the hybrid reciprocal velocity
+   *        obstacle.
+   */
+  Vector2 apex_;
+
+  /**
+   * @brief The direction of the first side of the hybrid reciprocal velocity
+   *        obstacle.
+   */
+  Vector2 side1_;
+
+  /**
+   * @brief The direction of the second side of the hybrid reciprocal velocity
+   *        obstacle.
+   */
+  Vector2 side2_;
+};
 
 Agent::Agent(Simulator *simulator)
     : simulator_(simulator),
-      goalNo_(0),
-      maxNeighbors_(0),
+      goalNo_(0U),
+      maxNeighbors_(0U),
       goalRadius_(0.0F),
       maxAccel_(0.0F),
       maxSpeed_(0.0F),
@@ -133,6 +170,8 @@ Agent::Agent(Simulator *simulator, const Vector2 &position, std::size_t goalNo,
 #endif /* HRVO_DIFFERENTIAL_DRIVE */
 }
 
+Agent::~Agent() {}
+
 void Agent::computeNeighbors() {
   neighbors_.clear();
   simulator_->kdTree_->query(this, neighborDist_ * neighborDist_);
@@ -149,10 +188,14 @@ void Agent::computeNewVelocity() {
        iter != neighbors_.end(); ++iter) {
     const Agent *const other = simulator_->agents_[iter->second];
 
-    if (absSq(other->position_ - position_) > sqr(other->radius_ + radius_)) {
-      const float angle = atan(other->position_ - position_);
-      const float openingAngle = std::asin((other->radius_ + radius_) /
-                                           abs(other->position_ - position_));
+    const Vector2 relativePosition = position_ - other->position_;
+    const Vector2 relativeVelocity = velocity_ - other->velocity_;
+    const float combinedRadius = radius_ + other->radius_;
+
+    if (absSq(relativePosition) > combinedRadius * combinedRadius) {
+      const float angle = atan(relativePosition);
+      const float openingAngle =
+          std::asin((combinedRadius) / abs(relativePosition));
 
       velocityObstacle.side1_ = Vector2(std::cos(angle - openingAngle),
                                         std::sin(angle - openingAngle));
@@ -161,38 +204,32 @@ void Agent::computeNewVelocity() {
 
       const float d = 2.0F * std::sin(openingAngle) * std::cos(openingAngle);
 
-      if (det(other->position_ - position_,
-              prefVelocity_ - other->prefVelocity_) > 0.0F) {
+      if (det(relativePosition, prefVelocity_ - other->prefVelocity_) > 0.0F) {
         const float s =
-            0.5F * det(velocity_ - other->velocity_, velocityObstacle.side2_) /
-            d;
+            0.5F * det(relativeVelocity, velocityObstacle.side2_) / d;
 
         velocityObstacle.apex_ =
             other->velocity_ + s * velocityObstacle.side1_ -
-            (uncertaintyOffset_ * abs(other->position_ - position_) /
-             (other->radius_ + radius_)) *
-                normalize(other->position_ - position_);
+            (uncertaintyOffset_ * abs(relativePosition) / (combinedRadius)) *
+                normalize(relativePosition);
       } else {
         const float s =
-            0.5F * det(velocity_ - other->velocity_, velocityObstacle.side1_) /
-            d;
+            0.5F * det(relativeVelocity, velocityObstacle.side1_) / d;
 
         velocityObstacle.apex_ =
             other->velocity_ + s * velocityObstacle.side2_ -
-            (uncertaintyOffset_ * abs(other->position_ - position_) /
-             (other->radius_ + radius_)) *
-                normalize(other->position_ - position_);
+            (uncertaintyOffset_ * abs(relativePosition) / (combinedRadius)) *
+                normalize(relativePosition);
       }
 
       velocityObstacles_.push_back(velocityObstacle);
     } else {
       velocityObstacle.apex_ =
           0.5F * (other->velocity_ + velocity_) -
-          (uncertaintyOffset_ +
-           0.5F *
-               (other->radius_ + radius_ - abs(other->position_ - position_)) /
-               simulator_->timeStep_) *
-              normalize(other->position_ - position_);
+          (uncertaintyOffset_ + 0.5F *
+                                    (combinedRadius - abs(relativePosition)) /
+                                    simulator_->timeStep_) *
+              normalize(relativePosition);
       velocityObstacle.side1_ = normal(position_, other->position_);
       velocityObstacle.side2_ = -velocityObstacle.side1_;
       velocityObstacles_.push_back(velocityObstacle);
@@ -253,9 +290,8 @@ void Agent::computeNewVelocity() {
     candidate.velocityObstacle1_ = std::numeric_limits<int>::max();
     candidate.velocityObstacle2_ = j;
 
-    float discriminant =
-        maxSpeed_ * maxSpeed_ -
-        sqr(det(velocityObstacles_[j].apex_, velocityObstacles_[j].side1_));
+    float d = det(velocityObstacles_[j].apex_, velocityObstacles_[j].side1_);
+    float discriminant = maxSpeed_ * maxSpeed_ - d * d;
 
     if (discriminant > 0.0F) {
       const float t1 =
@@ -280,9 +316,8 @@ void Agent::computeNewVelocity() {
       }
     }
 
-    discriminant =
-        maxSpeed_ * maxSpeed_ -
-        sqr(det(velocityObstacles_[j].apex_, velocityObstacles_[j].side2_));
+    d = det(velocityObstacles_[j].apex_, velocityObstacles_[j].side2_);
+    discriminant = maxSpeed_ * maxSpeed_ - d * d;
 
     if (discriminant > 0.0F) {
       const float t1 =
@@ -441,14 +476,15 @@ void Agent::computeNewVelocity() {
 }
 
 void Agent::computePreferredVelocity() {
-  const Vector2 goalPosition = simulator_->goals_[goalNo_]->position_;
-  const float distSqToGoal = absSq(goalPosition - position_);
+  const Vector2 relativeGoalPosition =
+      simulator_->goals_[goalNo_]->position_ - position_;
+  const float distSqToGoal = absSq(relativeGoalPosition);
+  const float prefDist = prefSpeed_ * simulator_->timeStep_;
 
-  if (sqr(prefSpeed_ * simulator_->timeStep_) > distSqToGoal) {
-    prefVelocity_ = (goalPosition - position_) / simulator_->timeStep_;
+  if (prefDist * prefDist > distSqToGoal) {
+    prefVelocity_ = relativeGoalPosition / simulator_->timeStep_;
   } else {
-    prefVelocity_ =
-        prefSpeed_ * (goalPosition - position_) / std::sqrt(distSqToGoal);
+    prefVelocity_ = prefSpeed_ * relativeGoalPosition / std::sqrt(distSqToGoal);
   }
 }
 
@@ -511,8 +547,9 @@ void Agent::insertNeighbor(std::size_t agentNo, float &rangeSq) {
 
   if (this != other) {
     const float distSq = absSq(position_ - other->position_);
+    const float combinedRadius = radius_ + other->radius_;
 
-    if (distSq < sqr(radius_ + other->radius_) && distSq < rangeSq) {
+    if (distSq < combinedRadius * combinedRadius && distSq < rangeSq) {
       neighbors_.clear();
 
       if (neighbors_.size() == maxNeighbors_) {
@@ -571,7 +608,6 @@ void Agent::update() {
   }
 
 #if !HRVO_DIFFERENTIAL_DRIVE
-
   if (!reachedGoal_) {
     orientation_ = atan(prefVelocity_);
   }

@@ -34,3 +34,4 @@
 cffconvert
 cmakelang
 reuse
+cpplint

@@ -32,21 +32,51 @@
  */
 
 /**
- * \file   KdTree.cc
- * \brief  Defines the KdTree class.
+ * @file  KdTree.cc
+ * @brief Defines the KdTree class.
  */
 
 #include "KdTree.h"
 
+#include <algorithm>
 #include <utility>
 
 #include "Agent.h"
-#include "Definitions.h"
 #include "Simulator.h"
 #include "Vector2.h"
 
 namespace hrvo {
+namespace {
+const std::size_t HRVO_MAX_LEAF_SIZE = 10U;
+} /* namespace */
+
+class KdTree::Node {
+ public:
+  Node();
+
+  std::size_t begin_;
+  std::size_t end_;
+  std::size_t left_;
+  std::size_t right_;
+  float maxX_;
+  float maxY_;
+  float minX_;
+  float minY_;
+};
+
+KdTree::Node::Node()
+    : begin_(0U),
+      end_(0U),
+      left_(0U),
+      right_(0U),
+      maxX_(0.0F),
+      maxY_(0.0F),
+      minX_(0.0F),
+      minY_(0.0F) {}
+
 KdTree::KdTree(Simulator *simulator) : simulator_(simulator) {}
+
+KdTree::~KdTree() {}
 
 void KdTree::build() {
   agents_.reserve(simulator_->agents_.size());
@@ -55,10 +85,10 @@ void KdTree::build() {
     agents_.push_back(i);
   }
 
-  nodes_.resize(2 * simulator_->agents_.size() - 1);
+  nodes_.resize(2U * simulator_->agents_.size() - 1U);
 
   if (!agents_.empty()) {
-    buildRecursive(0, agents_.size(), 0);
+    buildRecursive(0U, agents_.size(), 0U);
   }
 }
 
@@ -71,7 +101,7 @@ void KdTree::buildRecursive(std::size_t begin, std::size_t end,
   nodes_[node].minY_ = nodes_[node].maxY_ =
       simulator_->agents_[agents_[begin]]->position_.getY();
 
-  for (std::size_t i = begin + 1; i < end; ++i) {
+  for (std::size_t i = begin + 1U; i < end; ++i) {
     if (simulator_->agents_[agents_[i]]->position_.getX() >
         nodes_[node].maxX_) {
       nodes_[node].maxX_ = simulator_->agents_[agents_[i]]->position_.getX();
@@ -97,7 +127,7 @@ void KdTree::buildRecursive(std::size_t begin, std::size_t end,
                          : nodes_[node].maxY_ + nodes_[node].minY_);
 
     std::size_t left = begin;
-    std::size_t right = end - 1;
+    std::size_t right = end - 1U;
 
     while (true) {
       while (left <= right &&
@@ -128,12 +158,16 @@ void KdTree::buildRecursive(std::size_t begin, std::size_t end,
       ++right;
     }
 
-    nodes_[node].left_ = node + 1;
-    nodes_[node].right_ = 2 * (left - begin) + node;
+    nodes_[node].left_ = node + 1U;
+    nodes_[node].right_ = 2U * (left - begin) + node;
 
     buildRecursive(begin, left, nodes_[node].left_);
     buildRecursive(left, end, nodes_[node].right_);
   }
+}
+
+void KdTree::query(Agent *agent, float rangeSq) const {
+  queryRecursive(agent, rangeSq, 0U);
 }
 
 void KdTree::queryRecursive(Agent *agent, float &rangeSq,
@@ -143,40 +177,31 @@ void KdTree::queryRecursive(Agent *agent, float &rangeSq,
       agent->insertNeighbor(agents_[i], rangeSq);
     }
   } else {
-    float distSqLeft = 0.0F;
-    float distSqRight = 0.0F;
+    const float distLeftMinX = std::max(
+        0.0F, nodes_[nodes_[node].left_].minX_ - agent->position_.getX());
+    const float distLeftMaxX = std::max(
+        0.0F, agent->position_.getX() - nodes_[nodes_[node].left_].maxX_);
+    const float distLeftMinY = std::max(
+        0.0F, nodes_[nodes_[node].left_].minY_ - agent->position_.getY());
+    const float distLeftMaxY = std::max(
+        0.0F, agent->position_.getY() - nodes_[nodes_[node].left_].maxY_);
 
-    if (agent->position_.getX() < nodes_[nodes_[node].left_].minX_) {
-      distSqLeft +=
-          sqr(nodes_[nodes_[node].left_].minX_ - agent->position_.getX());
-    } else if (agent->position_.getX() > nodes_[nodes_[node].left_].maxX_) {
-      distSqLeft +=
-          sqr(agent->position_.getX() - nodes_[nodes_[node].left_].maxX_);
-    }
+    const float distSqLeft =
+        distLeftMinX * distLeftMinX + distLeftMaxX * distLeftMaxX +
+        distLeftMinY * distLeftMinY + distLeftMaxY * distLeftMaxY;
 
-    if (agent->position_.getY() < nodes_[nodes_[node].left_].minY_) {
-      distSqLeft +=
-          sqr(nodes_[nodes_[node].left_].minY_ - agent->position_.getY());
-    } else if (agent->position_.getY() > nodes_[nodes_[node].left_].maxY_) {
-      distSqLeft +=
-          sqr(agent->position_.getY() - nodes_[nodes_[node].left_].maxY_);
-    }
+    const float distRightMinX = std::max(
+        0.0F, nodes_[nodes_[node].right_].minX_ - agent->position_.getX());
+    const float distRightMaxX = std::max(
+        0.0F, agent->position_.getX() - nodes_[nodes_[node].right_].maxX_);
+    const float distRightMinY = std::max(
+        0.0F, nodes_[nodes_[node].right_].minY_ - agent->position_.getY());
+    const float distRightMaxY = std::max(
+        0.0F, agent->position_.getY() - nodes_[nodes_[node].right_].maxY_);
 
-    if (agent->position_.getX() < nodes_[nodes_[node].right_].minX_) {
-      distSqRight +=
-          sqr(nodes_[nodes_[node].right_].minX_ - agent->position_.getX());
-    } else if (agent->position_.getX() > nodes_[nodes_[node].right_].maxX_) {
-      distSqRight +=
-          sqr(agent->position_.getX() - nodes_[nodes_[node].right_].maxX_);
-    }
-
-    if (agent->position_.getY() < nodes_[nodes_[node].right_].minY_) {
-      distSqRight +=
-          sqr(nodes_[nodes_[node].right_].minY_ - agent->position_.getY());
-    } else if (agent->position_.getY() > nodes_[nodes_[node].right_].maxY_) {
-      distSqRight +=
-          sqr(agent->position_.getY() - nodes_[nodes_[node].right_].maxY_);
-    }
+    const float distSqRight =
+        distRightMinX * distRightMinX + distRightMaxX * distRightMaxX +
+        distRightMinY * distRightMinY + distRightMaxY * distRightMaxY;
 
     if (distSqLeft < distSqRight) {
       if (distSqLeft < rangeSq) {

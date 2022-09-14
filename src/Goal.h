@@ -32,8 +32,8 @@
  */
 
 /**
- * \file   Goal.h
- * \brief  Declares the Goal class.
+ * @file  Goal.h
+ * @brief Declares the Goal class.
  */
 
 #ifndef HRVO_GOAL_H_
@@ -43,13 +43,13 @@
 
 namespace hrvo {
 /**
- * \brief  A goal in the simulation.
+ * @brief A goal in the simulation.
  */
 class Goal {
  private:
   /**
-   * \brief      Constructor.
-   * \param[in]  position  The position of this goal.
+   * @brief     Constructor.
+   * @param[in] position The position of this goal.
    */
   explicit Goal(const Vector2 &position);
 

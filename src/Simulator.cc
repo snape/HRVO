@@ -32,8 +32,8 @@
  */
 
 /**
- * \file   Simulator.cc
- * \brief  Defines the Simulator class.
+ * @file  Simulator.cc
+ * @brief Defines the Simulator class.
  */
 
 #include "Simulator.h"
@@ -80,7 +80,7 @@ std::size_t Simulator::addAgent(const Vector2 &position, std::size_t goalNo) {
   Agent *const agent = new Agent(this, position, goalNo);
   agents_.push_back(agent);
 
-  return agents_.size() - 1;
+  return agents_.size() - 1U;
 }
 
 std::size_t Simulator::addAgent(const Vector2 &position, std::size_t goalNo,
@@ -101,14 +101,14 @@ std::size_t Simulator::addAgent(const Vector2 &position, std::size_t goalNo,
                                  uncertaintyOffset);
   agents_.push_back(agent);
 
-  return agents_.size() - 1;
+  return agents_.size() - 1U;
 }
 
 std::size_t Simulator::addGoal(const Vector2 &position) {
   Goal *const goal = new Goal(position);
   goals_.push_back(goal);
 
-  return goals_.size() - 1;
+  return goals_.size() - 1U;
 }
 
 void Simulator::doStep() {

@@ -32,8 +32,8 @@
  */
 
 /**
- * \file   Goal.cc
- * \brief  Defines the Goal class.
+ * @file  Goal.cc
+ * @brief Defines the Goal class.
  */
 
 #include "Goal.h"

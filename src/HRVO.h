@@ -32,24 +32,27 @@
  */
 
 /**
- * \file   HRVO.h
- * \brief  Includes all public headers.
+ * @file  HRVO.h
+ * @brief Includes all public headers.
  */
 
 #ifndef HRVO_HRVO_H_
 #define HRVO_HRVO_H_
 
 /**
- * \namespace  hrvo
- * \brief      Contains all classes and functions.
+ * @namespace hrvo
+ * @brief     Contains all classes and functions.
  */
 
 /**
- * \mainpage   HRVO Library Documentation
- * \authors    Jamie Snape, Jur van den Berg, Stephen J. Guy, and Dinesh Manocha
- * \copyright  2009 University of North Carolina at Chapel Hill
+ * @mainpage   HRVO Library Documentation
+ * @author     Jamie Snape
+ * @author     Jur van den Berg
+ * @author     Stephen J. Guy
+ * @author     Dinesh Manocha
+ * @copyright  2009 University of North Carolina at Chapel Hill
  *
- * \details    We present the hybrid reciprocal velocity obstacle for
+ * @details    We present the hybrid reciprocal velocity obstacle for
  *             collision-free and oscillation-free navigation of multiple mobile
  *             robots or virtual agents. Each robot or virtual agents senses its
  *             surroundings and acts independently without central coordination

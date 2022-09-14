@@ -32,20 +32,20 @@
  */
 
 /**
- * \file   Circle.cc
- * \brief  Example with 250 agents navigating through a circular environment.
+ * @file Circle.cc
+ * @brief Example with 250 agents navigating through a circular environment.
  */
 
 #ifndef HRVO_OUTPUT_TIME_AND_POSITIONS
 #define HRVO_OUTPUT_TIME_AND_POSITIONS 1
-#endif
+#endif /* HRVO_OUTPUT_TIME_AND_POSITIONS */
 
 #include <cmath>
 #include <cstddef>
 
 #if HRVO_OUTPUT_TIME_AND_POSITIONS
 #include <iostream>
-#endif
+#endif /* HRVO_OUTPUT_TIME_AND_POSITIONS */
 
 #include "HRVO.h"
 
@@ -55,9 +55,9 @@ int main() {
   hrvo::Simulator simulator;
 
   simulator.setTimeStep(0.25F);
-  simulator.setAgentDefaults(15.0F, 10, 1.5F, 1.5F, 1.0F, 2.0F);
+  simulator.setAgentDefaults(15.0F, 10U, 1.5F, 1.5F, 1.0F, 2.0F);
 
-  for (std::size_t i = 0; i < 250; ++i) {
+  for (std::size_t i = 0U; i < 250U; ++i) {
     const hrvo::Vector2 position =
         200.0F *
         hrvo::Vector2(std::cos(0.004F * static_cast<float>(i) * HRVO_TWO_PI),
@@ -69,7 +69,7 @@ int main() {
 #if HRVO_OUTPUT_TIME_AND_POSITIONS
     std::cout << simulator.getGlobalTime();
 
-    for (std::size_t i = 0; i < simulator.getNumAgents(); ++i) {
+    for (std::size_t i = 0U; i < simulator.getNumAgents(); ++i) {
       std::cout << " " << simulator.getAgentPosition(i);
     }
 

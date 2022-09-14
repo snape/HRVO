@@ -50,9 +50,13 @@ Checks: >
   -bugprone-easily-swappable-parameters,
   -cppcoreguidelines-avoid-magic-numbers,
   -misc-no-recursion,
-  -misc-non-private-member-variables-in-classes,
   -readability-function-cognitive-complexity,
+  -readability-identifier-length,
   -readability-magic-numbers
+
+CheckOptions:
+  - key: misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
+    value: 1
 
 FormatStyle: file
 
