@@ -1,5 +1,8 @@
+# -*- mode: bazel; -*-
+# vi: set ft=bazel:
+
 #
-# codeql.yml
+# WORKSPACE.bazel
 # HRVO Library
 #
 # SPDX-FileCopyrightText: 2009 University of North Carolina at Chapel Hill
@@ -31,31 +34,23 @@
 # <https://gamma.cs.unc.edu/HRVO/>
 #
 
----
-name: codeql
+module(
+    name = "hrvo",
+    version = "1.1.0",
+)
 
-on:  # yamllint disable-line rule:truthy
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  schedule:
-    - cron: '0 6 * * 3'
+bazel_dep(
+    name = "apple_support",
+    version = "1.6.0",
+    repo_name = "build_bazel_apple_support"
+)
 
-jobs:
-  analyze:
-    name: analyze
-    runs-on: ubuntu-22.04
-    steps:
-      - name: checkout
-        uses: actions/checkout@v3
-      - name: initialize codeql
-        uses: github/codeql-action/init@v2
-        with:
-          languages: cpp
-      - name: autobuild
-        uses: github/codeql-action/autobuild@v2
-      - name: perform codeql analysis
-        uses: github/codeql-action/analyze@v2
+apple_cc_configure = use_extension(
+    "@build_bazel_apple_support//crosstool:setup.bzl",
+    "apple_cc_configure_extension",
+)
+use_repo(apple_cc_configure, "local_config_apple_cc")
+
+bazel_dep(name = "rules_cc", version = "0.0.6")
+bazel_dep(name = "rules_license", version = "0.0.4")
+bazel_dep(name = "rules_pkg", version = "0.9.1", dev_dependency = True)
