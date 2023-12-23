@@ -41,8 +41,8 @@ module(
 
 bazel_dep(
     name = "apple_support",
-    version = "1.6.0",
-    repo_name = "build_bazel_apple_support"
+    version = "1.11.1",
+    repo_name = "build_bazel_apple_support",
 )
 
 apple_cc_configure = use_extension(
@@ -51,6 +51,7 @@ apple_cc_configure = use_extension(
 )
 use_repo(apple_cc_configure, "local_config_apple_cc")
 
-bazel_dep(name = "rules_cc", version = "0.0.6")
-bazel_dep(name = "rules_license", version = "0.0.4")
+bazel_dep(name = "rules_cc", version = "0.0.9")
+bazel_dep(name = "rules_license", version = "0.0.7")
+
 bazel_dep(name = "rules_pkg", version = "0.9.1", dev_dependency = True)
