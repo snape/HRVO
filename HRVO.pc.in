@@ -38,7 +38,7 @@ includedir=${prefix}/@HRVO_INCLUDE_DIR@
 
 Name: @HRVO_NAME@
 Description: @PROJECT_DESCRIPTION@
-URL: @HRVO_HOMEPAGE_URL@
+URL: @PROJECT_HOMEPAGE_URL@
 Version: @PROJECT_VERSION@
 Libs: -L${libdir} -l@HRVO_LIBRARY@
 Cflags: -I${includedir}
