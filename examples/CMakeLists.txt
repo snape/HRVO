@@ -34,7 +34,9 @@
 # <https://gamma.cs.unc.edu/HRVO/>
 #
 
-if(BUILD_TESTING)
+option(BUILD_EXAMPLES "Build examples" ${PROJECT_IS_TOP_LEVEL})
+
+if(BUILD_EXAMPLES)
   option(OUTPUT_TIME_AND_POSITIONS "Output time and positions" ON)
 
   if(OUTPUT_TIME_AND_POSITIONS)
@@ -59,6 +61,10 @@ if(BUILD_TESTING)
   endif()
   set_target_properties(Circle PROPERTIES
     INTERPROCEDURAL_OPTIMIZATION ${HRVO_EXAMPLES_INTERPROCEDURAL_OPTIMIZATION})
+  if(CMAKE_VERSION VERSION_GREATER_EQUAL 4.1)
+    set_target_properties(Circle PROPERTIES
+      SPDX_LICENSE Apache-2.0)
+  endif()
   add_test(NAME Circle COMMAND Circle)
   set_tests_properties(Circle PROPERTIES
     LABELS medium
