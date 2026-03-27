@@ -75,6 +75,7 @@ pkg_files(
 
 cc_shared_library(
     name = "HRVO",
+    visibility = ["//visibility:public"],
     deps = ["//src:HRVO"],
 )
 
@@ -101,7 +102,7 @@ cat << 'EOF' > $@
     }
   },
   "cps_path": "@prefix@/lib/cps/HRVO",
-  "cps_version": "0.13.0",
+  "cps_version": "0.14.1",
   "default_components": ["HRVO"],
   "description": "The Hybrid Reciprocal Velocity Obstacle",
   "license": "Apache-2.0",
@@ -114,9 +115,64 @@ EOF
 """,
 )
 
+genrule(
+    name = "hrvo_release_cps",
+    outs = ["HRVO@release.cps"],
+    cmd = select({
+        "@platforms//os:macos": """
+cat << 'EOF' > $@
+{
+  "components":
+  {
+    "HRVO":
+    {
+      "location": "@prefix@/lib/libHRVO.dylib"
+    }
+  },
+  "configuration": "Release",
+  "name": "HRVO"
+}
+EOF
+""",
+        "@platforms//os:windows": """
+cat << 'EOF' > $@
+{
+  "components":
+  {
+    "HRVO":
+    {
+      "location": "@prefix@/lib/HRVO.dll"
+    }
+  },
+  "configuration": "Release",
+  "name": "HRVO"
+}
+EOF
+""",
+        "//conditions:default": """
+cat << 'EOF' > $@
+{
+  "components":
+  {
+    "HRVO":
+    {
+      "location": "@prefix@/lib/libHRVO.so"
+    }
+  },
+  "configuration": "Release",
+  "name": "HRVO"
+}
+EOF
+""",
+    }),
+)
+
 pkg_files(
     name = "cps",
-    srcs = ["HRVO.cps"],
+    srcs = [
+        "HRVO.cps",
+        "HRVO@release.cps",
+    ],
     attributes = pkg_attributes(mode = "0644"),
     prefix = "usr/lib/cps/HRVO",
 )
@@ -197,11 +253,13 @@ pkg_tar(
 
 pkg_deb(
     name = "deb",
-    architecture = select({
-        "@platforms//cpu:arm": "amd64",
-        "@platforms//os:macos": "arm64",
-        "//conditions:default": "all",
-    }),
+    architecture = select(
+        {
+            "@platforms//cpu:aarch64": "arm64",
+            "@platforms//cpu:x86_64": "amd64",
+        },
+        no_match_error = "Unsupported CPU for //:deb. Supported CPUs: aarch64, x86_64.",
+    ),
     data = ":tar",
     depends = [
         "libc6",
@@ -215,6 +273,7 @@ pkg_deb(
     package = "hrvo",
     priority = "optional",
     section = "contrib/libdevel",
+    target_compatible_with = ["@platforms//os:linux"],
     triggers = "triggers",
     version = "1.1.0",
 )
