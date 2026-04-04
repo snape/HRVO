@@ -361,7 +361,7 @@ class HRVO_EXPORT Simulator {
   void setAgentGoalRadius(std::size_t agentNo, float goalRadius);
 
   /**
-   * @brief     Sets the maximum linear acceleraton of a specified agent.
+   * @brief     Sets the maximum linear acceleration of a specified agent.
    * @param[in] agentNo  The number of the agent whose maximum acceleration is
    *                     to be modified.
    * @param[in] maxAccel The replacement maximum acceleration.
