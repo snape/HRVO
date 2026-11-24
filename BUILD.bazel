@@ -38,7 +38,7 @@ load("@rules_cc//cc:defs.bzl", "cc_shared_library")
 load("@rules_license//rules:license.bzl", "license")
 load("@rules_license//rules:package_info.bzl", "package_info")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_attributes", "pkg_files")
-load("@rules_pkg//pkg:pkg.bzl", "pkg_deb", "pkg_tar")
+load("@rules_pkg//pkg:pkg.bzl", "pkg_deb", "pkg_tar", "pkg_zip")
 
 package(default_package_metadata = [
     ":license",
@@ -84,97 +84,6 @@ pkg_files(
     srcs = [":HRVO"],
     attributes = pkg_attributes(mode = "0644"),
     prefix = "usr/lib",
-)
-
-genrule(
-    name = "hrvo_cps",
-    outs = ["HRVO.cps"],
-    cmd = """
-cat << 'EOF' > $@
-{
-  "compat_version": "1",
-  "components":
-  {
-    "HRVO":
-    {
-      "includes": ["@prefix@/include/HRVO"],
-      "type": "dylib"
-    }
-  },
-  "cps_path": "@prefix@/lib/cps/HRVO",
-  "cps_version": "0.14.1",
-  "default_components": ["HRVO"],
-  "description": "The Hybrid Reciprocal Velocity Obstacle",
-  "license": "Apache-2.0",
-  "name": "HRVO",
-  "version": "1.1.0",
-  "version_schema": "simple",
-  "website": "https://gamma.cs.unc.edu/HRVO/"
-}
-EOF
-""",
-)
-
-genrule(
-    name = "hrvo_release_cps",
-    outs = ["HRVO@release.cps"],
-    cmd = select({
-        "@platforms//os:macos": """
-cat << 'EOF' > $@
-{
-  "components":
-  {
-    "HRVO":
-    {
-      "location": "@prefix@/lib/libHRVO.dylib"
-    }
-  },
-  "configuration": "Release",
-  "name": "HRVO"
-}
-EOF
-""",
-        "@platforms//os:windows": """
-cat << 'EOF' > $@
-{
-  "components":
-  {
-    "HRVO":
-    {
-      "location": "@prefix@/lib/HRVO.dll"
-    }
-  },
-  "configuration": "Release",
-  "name": "HRVO"
-}
-EOF
-""",
-        "//conditions:default": """
-cat << 'EOF' > $@
-{
-  "components":
-  {
-    "HRVO":
-    {
-      "location": "@prefix@/lib/libHRVO.so"
-    }
-  },
-  "configuration": "Release",
-  "name": "HRVO"
-}
-EOF
-""",
-    }),
-)
-
-pkg_files(
-    name = "cps",
-    srcs = [
-        "HRVO.cps",
-        "HRVO@release.cps",
-    ],
-    attributes = pkg_attributes(mode = "0644"),
-    prefix = "usr/lib/cps/HRVO",
 )
 
 # REUSE-IgnoreStart
@@ -229,6 +138,10 @@ Libs: -L$${libdir} -lHRVO
 Cflags: -I$${includedir}
 EOF
 """,
+    target_compatible_with = select({
+        "@platforms//os:windows": ["@platforms//:incompatible"],
+        "//conditions:default": [],
+    }),
 )
 # REUSE-IgnoreEnd
 
@@ -237,18 +150,25 @@ pkg_files(
     srcs = ["HRVO.pc"],
     attributes = pkg_attributes(mode = "0644"),
     prefix = "usr/lib/pkgconfig",
+    target_compatible_with = select({
+        "@platforms//os:windows": ["@platforms//:incompatible"],
+        "//conditions:default": [],
+    }),
 )
 
 pkg_tar(
     name = "tar",
     srcs = [
-        ":cps",
         ":doc",
         ":lib",
         ":pkgconfig",
         "//src:include",
     ],
     extension = "tar.gz",
+    target_compatible_with = select({
+        "@platforms//os:windows": ["@platforms//:incompatible"],
+        "//conditions:default": [],
+    }),
 )
 
 pkg_deb(
@@ -276,4 +196,35 @@ pkg_deb(
     target_compatible_with = ["@platforms//os:linux"],
     triggers = "triggers",
     version = "1.1.0",
+)
+
+filegroup(
+    name = "implib",
+    srcs = [":HRVO"],
+    output_group = "interface_library",
+    target_compatible_with = ["@platforms//os:windows"],
+)
+
+pkg_files(
+    name = "lib_windows",
+    srcs = [
+        ":HRVO",
+        ":implib",
+    ],
+    attributes = pkg_attributes(mode = "0644"),
+    prefix = "usr/lib",
+    target_compatible_with = ["@platforms//os:windows"],
+)
+
+pkg_zip(
+    name = "zip",
+    srcs = [
+        ":doc",
+        ":lib_windows",
+        "//src:include",
+    ],
+    target_compatible_with = select({
+        "@platforms//os:windows": [],
+        "//conditions:default": ["@platforms//:incompatible"],
+    }),
 )

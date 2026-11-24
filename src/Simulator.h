@@ -489,8 +489,15 @@ class HRVO_EXPORT Simulator {
   float globalTime_;
   float timeStep_;
   bool reachedGoals_;
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4251)
+#endif /* _MSC_VER */
   std::vector<Agent *> agents_;
   std::vector<Goal *> goals_;
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif /* _MSC_VER */
 
   friend class Agent;
   friend class Goal;
