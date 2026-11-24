@@ -58,11 +58,11 @@ class Agent::Candidate {
   Candidate();
 
   Vector2 position_;
-  int velocityObstacle1_;
-  int velocityObstacle2_;
+  std::size_t velocityObstacle1_;
+  std::size_t velocityObstacle2_;
 };
 
-Agent::Candidate::Candidate() : velocityObstacle1_(0), velocityObstacle2_(0) {}
+Agent::Candidate::Candidate() : velocityObstacle1_(0U), velocityObstacle2_(0U) {}
 
 /**
  * @brief A hybrid reciprocal velocity obstacle.
@@ -240,8 +240,8 @@ void Agent::computeNewVelocity() {
 
   Candidate candidate;
 
-  candidate.velocityObstacle1_ = std::numeric_limits<int>::max();
-  candidate.velocityObstacle2_ = std::numeric_limits<int>::max();
+  candidate.velocityObstacle1_ = std::numeric_limits<std::size_t>::max();
+  candidate.velocityObstacle2_ = std::numeric_limits<std::size_t>::max();
 
   if (absSq(prefVelocity_) < maxSpeed_ * maxSpeed_) {
     candidate.position_ = prefVelocity_;
@@ -252,7 +252,7 @@ void Agent::computeNewVelocity() {
   candidates_.insert(
       std::make_pair(absSq(prefVelocity_ - candidate.position_), candidate));
 
-  for (int i = 0; i < static_cast<int>(velocityObstacles_.size()); ++i) {
+  for (std::size_t i = 0U; i < velocityObstacles_.size(); ++i) {
     candidate.velocityObstacle1_ = i;
     candidate.velocityObstacle2_ = i;
 
@@ -286,8 +286,8 @@ void Agent::computeNewVelocity() {
     }
   }
 
-  for (int j = 0; j < static_cast<int>(velocityObstacles_.size()); ++j) {
-    candidate.velocityObstacle1_ = std::numeric_limits<int>::max();
+  for (std::size_t j = 0U; j < velocityObstacles_.size(); ++j) {
+    candidate.velocityObstacle1_ = std::numeric_limits<std::size_t>::max();
     candidate.velocityObstacle2_ = j;
 
     float d = det(velocityObstacles_[j].apex_, velocityObstacles_[j].side1_);
@@ -343,8 +343,8 @@ void Agent::computeNewVelocity() {
     }
   }
 
-  for (int i = 0; i < static_cast<int>(velocityObstacles_.size()) - 1; ++i) {
-    for (int j = i + 1; j < static_cast<int>(velocityObstacles_.size()); ++j) {
+  for (std::size_t i = 0U; i + 1U < velocityObstacles_.size(); ++i) {
+    for (std::size_t j = i + 1U; j < velocityObstacles_.size(); ++j) {
       candidate.velocityObstacle1_ = i;
       candidate.velocityObstacle2_ = j;
 
@@ -442,7 +442,8 @@ void Agent::computeNewVelocity() {
     }
   }
 
-  int optimal = -1;
+  bool hasOptimal = false;
+  std::size_t optimal = 0U;
 
   for (std::multimap<float, Candidate>::const_iterator iter =
            candidates_.begin();
@@ -450,7 +451,7 @@ void Agent::computeNewVelocity() {
     candidate = iter->second;
     bool valid = true;
 
-    for (int j = 0; j < static_cast<int>(velocityObstacles_.size()); ++j) {
+    for (std::size_t j = 0U; j < velocityObstacles_.size(); ++j) {
       if (j != candidate.velocityObstacle1_ &&
           j != candidate.velocityObstacle2_ &&
           det(velocityObstacles_[j].side2_,
@@ -459,7 +460,8 @@ void Agent::computeNewVelocity() {
               candidate.position_ - velocityObstacles_[j].apex_) > 0.0F) {
         valid = false;
 
-        if (j > optimal) {
+        if (!hasOptimal || j > optimal) {
+          hasOptimal = true;
           optimal = j;
           newVelocity_ = candidate.position_;
         }

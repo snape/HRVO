@@ -83,6 +83,10 @@ if(WIN32)
   target_compile_definitions(${HRVO_LIBRARY} PUBLIC NOMINMAX)
 endif()
 
+if(NOT BUILD_SHARED_LIBS)
+  target_compile_definitions(${HRVO_LIBRARY} PUBLIC HRVO_STATIC_DEFINE)
+endif()
+
 if(ENABLE_OPENMP AND OpenMP_FOUND)
   target_link_libraries(${HRVO_LIBRARY} PRIVATE OpenMP::OpenMP_CXX)
 endif()
