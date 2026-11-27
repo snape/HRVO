@@ -62,7 +62,6 @@ The Hybrid Reciprocal Velocity Obstacle
 
 [![DOI](https://zenodo.org/badge/10278421.svg)](https://zenodo.org/badge/latestdoi/10278421)
 
-
 We present the hybrid reciprocal velocity obstacle (HRVO) for collision-free and
 oscillation-free navigation of multiple mobile robots or virtual agents. Each
 robot senses its surroundings and acts independently without central
