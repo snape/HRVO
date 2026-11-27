@@ -75,6 +75,7 @@ demonstrate direct, collision-free, and oscillation-free navigation.
 
 ![Bazel](https://github.com/snape/HRVO/actions/workflows/bazel.yml/badge.svg?branch=main)
 ![CMake](https://github.com/snape/HRVO/actions/workflows/cmake.yml/badge.svg?branch=main)
+![Meson](https://github.com/snape/HRVO/actions/workflows/meson.yml/badge.svg?branch=main)
 
 <!-- REUSE-IgnoreStart -->
 SPDX-FileCopyrightText: 2009 University of North Carolina at Chapel Hill  
